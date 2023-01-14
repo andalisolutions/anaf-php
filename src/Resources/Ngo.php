@@ -7,7 +7,7 @@ namespace Anaf\Resources;
 use Anaf\Responses\Ong\GetResponse;
 use Anaf\ValueObjects\Transporter\Payload;
 
-final class Ong
+final class Ngo
 {
     use Concerns\Transportable;
 

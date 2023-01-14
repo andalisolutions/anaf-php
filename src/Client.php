@@ -6,7 +6,7 @@ namespace Anaf;
 
 use Anaf\Contracts\Transporter;
 use Anaf\Resources\Info;
-use Anaf\Resources\Ong;
+use Anaf\Resources\Ngo;
 use Anaf\ValueObjects\TaxIdentificationNumber;
 
 final class Client
@@ -35,8 +35,8 @@ final class Client
      *
      * @see https://static.anaf.ro/static/10/Anaf/Informatii_R/index_cult_v2.html
      */
-    public function ong(): Ong
+    public function ngo(): Ngo
     {
-        return new Ong($this->transporter, $this->taxIdentificationNumber);
+        return new Ngo($this->transporter, $this->taxIdentificationNumber);
     }
 }
