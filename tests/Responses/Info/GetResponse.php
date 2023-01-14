@@ -10,7 +10,7 @@ use Anaf\Responses\Info\RetrieveResponseVatRegistration;
 use Anaf\Responses\Info\RetrieveResponseVatRegistrationAtCheckout;
 
 test('from anaf', function () {
-    $response = GetResponse::from(getAnafInfo()['found'][0]);
+    $response = GetResponse::from(getCompanyAnafInfo()['found'][0]);
     expect($response)
         ->toBeInstanceOf(GetResponse::class)
         ->generalData->toBeInstanceOf(RetrieveResponseGeneralData::class)
@@ -23,15 +23,15 @@ test('from anaf', function () {
 });
 
 test('to array', function () {
-    $response = GetResponse::from(getAnafInfo()['found'][0]);
+    $response = GetResponse::from(getCompanyAnafInfo()['found'][0]);
 
     expect($response->toArray())
         ->toBeArray()
-        ->toBe(getInfo());
+        ->toBe(getCompanyInfo());
 });
 
 test('as array accessible', function () {
-    $response = GetResponse::from(getAnafInfo()['found'][0]);
+    $response = GetResponse::from(getCompanyAnafInfo()['found'][0]);
 
     expect($response['general_data']['company_name'])->toBe('ANDALI SOLUTIONS PRO S.R.L.');
 });

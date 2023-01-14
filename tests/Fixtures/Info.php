@@ -3,7 +3,7 @@
 /**
  * @return array<string, mixed>
  */
-function getInfo(): array
+function getCompanyInfo(): array
 {
     return [
         'general_data' => [
@@ -76,7 +76,10 @@ function getInfo(): array
     ];
 }
 
-function getAnafInfo(): array
+/**
+ * @return array<string, mixed>
+ */
+function getCompanyAnafInfo(): array
 {
     return [
         'cod' => 200,
