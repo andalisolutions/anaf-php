@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Anaf\Responses\Ong;
+namespace Anaf\Responses\Ngo;
 
 use Anaf\Contracts\Response;
 use Anaf\Responses\Concerns\ArrayAccessible;

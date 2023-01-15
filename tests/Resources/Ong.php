@@ -1,9 +1,9 @@
 <?php
 
-use Anaf\Responses\Ong\GetResponse;
+use Anaf\Responses\Ngo\GetResponse;
 
 test('get ong', function () {
-    $client = mockClient('POST', 'RegCult/api/v2/ws/cult', [], getOngAnafInfo());
+    $client = mockClient('POST', 'RegCult/api/v2/ws/cult', [], getNgoAnafInfo());
 
     $result = $client->ngo()->get();
 

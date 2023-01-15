@@ -3,7 +3,7 @@
 /**
  * @return array<string, mixed>
  */
-function getOngInfo(): array
+function getNgoInfo(): array
 {
     return [
         'tax_identification_number' => 123446,
@@ -23,7 +23,7 @@ function getOngInfo(): array
 /**
  * @return array<string, mixed>
  */
-function getOngAnafInfo(): array
+function getNgoAnafInfo(): array
 {
     return [
         'cod' => 200,

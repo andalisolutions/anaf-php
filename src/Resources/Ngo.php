@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Anaf\Resources;
 
-use Anaf\Responses\Ong\GetResponse;
+use Anaf\Responses\Ngo\GetResponse;
 use Anaf\ValueObjects\Transporter\Payload;
 
 final class Ngo

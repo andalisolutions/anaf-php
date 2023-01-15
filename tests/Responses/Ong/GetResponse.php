@@ -1,9 +1,9 @@
 <?php
 
-use Anaf\Responses\Ong\GetResponse;
+use Anaf\Responses\Ngo\GetResponse;
 
 test('from anaf', function () {
-    $response = GetResponse::from(getOngAnafInfo()['found'][0]);
+    $response = GetResponse::from(getNgoAnafInfo()['found'][0]);
     expect($response)
         ->toBeInstanceOf(GetResponse::class)
         ->taxIdentificationNumber->toBe(123446)
@@ -20,15 +20,15 @@ test('from anaf', function () {
 });
 
 test('to array', function () {
-    $response = GetResponse::from(getOngAnafInfo()['found'][0]);
+    $response = GetResponse::from(getNgoAnafInfo()['found'][0]);
 
     expect($response->toArray())
         ->toBeArray()
-        ->toBe(getOngInfo());
+        ->toBe(getNgoInfo());
 });
 
 test('as array accessible', function () {
-    $response = GetResponse::from(getOngAnafInfo()['found'][0]);
+    $response = GetResponse::from(getNgoAnafInfo()['found'][0]);
 
     expect($response['entity_name'])->toBe('ASOCIATIA TEST');
 });
