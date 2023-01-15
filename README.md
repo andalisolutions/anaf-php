@@ -31,7 +31,7 @@ $company = Anaf::for('TAX IDENTIFICATION NUMBER');
 - [ ] Obtaining public information in the financial statements/annual accounting reports related to economic agents. ([Docs](https://static.anaf.ro/static/10/Anaf/Informatii_R/doc_WS_Bilant_V1.txt))
 - [x] Get info about taxpayers who are registered according to art. 316 of the Fiscal Code, according to the Register of taxable persons who apply the VAT system upon receipt, according to the Register of inactive/reactive taxpayers, according to the Register of persons who apply the broken down payment of VAT and respectively the RO e-Invoice Register. ([Docs](https://static.anaf.ro/static/10/Anaf/Informatii_R/Servicii_web/doc_WS_V7.txt))
 - [ ] Get info about taxpayers who are registered in the Register of farmers who apply the special regime ([Docs](https://static.anaf.ro/static/10/Anaf/Informatii_R/documentatie_SWRARG_v2.txt))
-- [ ] Get info about taxpayers who are registered in the Register of religious entities/units ([Docs](https://static.anaf.ro/static/10/Anaf/Informatii_R/index_cult_v2.html))
+- [x] Get info about taxpayers who are registered in the Register of religious entities/units ([Docs](https://static.anaf.ro/static/10/Anaf/Informatii_R/index_cult_v2.html))
 - [ ] Accessing the functionalities offered by the SPV ([Docs](https://static.anaf.ro/static/10/Anaf/Informatii_R/Prezentare_WS_SPV.txt))
 - [ ] The national system regarding the electronic invoice RO e-Factura ([Docs](https://mfinante.gov.ro/static/10/eFactura/prezentare%20apeluri%20API%20E-factura.pdf))
 - [ ] The integrated electronic system RO e-Transport ([Docs](https://www.anaf.ro/anaf/internet/ANAF/servicii_online/servicii_web_anaf))
@@ -132,10 +132,32 @@ $companyInfo->toArray(); // ["general_data" => ["tax_identification_number" => '
 // or
 $companyInfo->generalData->toArray(); // ['tax_identification_number' => '', 'company_name' => ''...]
 
-...
 
 ```
+### [Ngo](https://static.anaf.ro/static/10/Anaf/Informatii_R/index_cult_v2.html) Resource
 
+Checking NGO taxpayers who are registered in the Register of religious entities/units
+```php
+$entity = Anaf::for('TAX IDENTIFICATION NUMBER');
+
+$entityInfo = $entity->ngo()->get();
+
+$entityInfo->taxIdentificationNumber;
+$entityInfo->searchDate;
+$entityInfo->entityName;
+$entityInfo->address;
+$entityInfo->phone;
+$entityInfo->postalCode;
+$entityInfo->document;
+$entityInfo->registrationStatus;
+$entityInfo->startDate;
+$entityInfo->endDate;
+$entityInfo->status;
+
+// You can use all resources as array
+$entityInfo->toArray(); // ["tax_identification_number" => '', "entity_name" => ''...]
+
+```
 ---
 
 ANAF PHP is an open-sourced software licensed under the **[MIT license](https://opensource.org/licenses/MIT)**.
