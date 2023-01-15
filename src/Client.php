@@ -6,6 +6,7 @@ namespace Anaf;
 
 use Anaf\Contracts\Transporter;
 use Anaf\Resources\Info;
+use Anaf\Resources\Ngo;
 use Anaf\ValueObjects\TaxIdentificationNumber;
 
 final class Client
@@ -27,5 +28,15 @@ final class Client
     public function info(): Info
     {
         return new Info($this->transporter, $this->taxIdentificationNumber);
+    }
+
+    /**
+     * Verification of taxpayers who are registered in the Register of religious entities/units
+     *
+     * @see https://static.anaf.ro/static/10/Anaf/Informatii_R/index_cult_v2.html
+     */
+    public function ngo(): Ngo
+    {
+        return new Ngo($this->transporter, $this->taxIdentificationNumber);
     }
 }

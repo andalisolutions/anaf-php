@@ -3,7 +3,7 @@
 use Anaf\Responses\Info\GetResponse;
 
 test('get', function () {
-    $client = mockClient('POST', 'PlatitorTvaRest/api/v7/ws/tva', [], getAnafInfo());
+    $client = mockClient('POST', 'PlatitorTvaRest/api/v7/ws/tva', [], getCompanyAnafInfo());
 
     $result = $client->info()->get();
 
