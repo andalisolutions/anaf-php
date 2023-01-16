@@ -52,7 +52,6 @@ final class GetResponse implements Response
         };
 
         $indicators = array_reduce($attributes['i'], function (array $result, $item) use ($indicatorType): array {
-
             $replaceDiacritics = (string) iconv('UTF-8', 'ASCII//TRANSLIT', $item['val_den_indicator']);
             $key = str_replace(['  ', ':'], [' ', ''], trim(strtoupper($replaceDiacritics)));
             $cleanKey = (string) preg_replace('/ - LA (\d{2}\.\d{2}\.\d{4})/', '', $key);
