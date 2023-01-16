@@ -43,6 +43,18 @@ final class Payload
     }
 
     /**
+     * Creates a new Payload value object from the given parameters to retrieve the balance sheet for given year
+     */
+    public static function get(string $resource, string $taxIdentificationNumber, string $year): self
+    {
+        $contentType = ContentType::JSON;
+        $method = Method::GET;
+        $uri = ResourceUri::retrieveBalanceSheet($resource, $taxIdentificationNumber, $year);
+
+        return new self($contentType, $method, $uri);
+    }
+
+    /**
      * Creates a new Psr 7 Request instance.
      */
     public function toRequest(BaseUri $baseUri, Headers $headers): Psr7Request
