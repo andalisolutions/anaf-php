@@ -3,6 +3,9 @@
 namespace Anaf\Enums\BalanceSheet;
 
 enum BL: string
+
+enum BL: string
+
 {
     case AVERAGE_NUMBER_OF_EMPLOYEES = 'NUMAR MEDIU DE SALARIATI';
     case NET_LOSS = 'PIERDERE NETA';
