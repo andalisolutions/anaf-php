@@ -28,6 +28,14 @@ final class ResourceUri implements Stringable
     }
 
     /**
+     * Creates a new ResourceUri value object that retrieves the given resource content.
+     */
+    public static function retrieveBalanceSheet(string $resource, string $taxIdentificationNumber, string $year): self
+    {
+        return new self("{$resource}?an={$year}&cui={$taxIdentificationNumber}");
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function toString(): string
