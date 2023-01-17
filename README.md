@@ -28,7 +28,7 @@ $company = Anaf::for('TAX IDENTIFICATION NUMBER');
 ```
 
 ## TODO
-- [ ] Obtaining public information in the financial statements/annual accounting reports related to economic agents. ([Docs](https://static.anaf.ro/static/10/Anaf/Informatii_R/doc_WS_Bilant_V1.txt))
+- [x] Obtaining public information in the financial statements/annual accounting reports related to economic agents. ([Docs](https://static.anaf.ro/static/10/Anaf/Informatii_R/doc_WS_Bilant_V1.txt))
 - [x] Get info about taxpayers who are registered according to art. 316 of the Fiscal Code, according to the Register of taxable persons who apply the VAT system upon receipt, according to the Register of inactive/reactive taxpayers, according to the Register of persons who apply the broken down payment of VAT and respectively the RO e-Invoice Register. ([Docs](https://static.anaf.ro/static/10/Anaf/Informatii_R/Servicii_web/doc_WS_V7.txt))
 - [ ] Get info about taxpayers who are registered in the Register of farmers who apply the special regime ([Docs](https://static.anaf.ro/static/10/Anaf/Informatii_R/documentatie_SWRARG_v2.txt))
 - [x] Get info about taxpayers who are registered in the Register of religious entities/units ([Docs](https://static.anaf.ro/static/10/Anaf/Informatii_R/index_cult_v2.html))
@@ -64,14 +64,15 @@ $balanceSheet->indicators['PROVISIONS']->value;
 $balanceSheet->indicators['ADVANCE_INCOME']->value;
 $balanceSheet->indicators['LIABILITIES']->value;
 $balanceSheet->indicators['PREPAYMENTS']->value;
-$balanceSheet->indicators['HOME_AND_BANK_ACCOUNTS']-value;
-$balanceSheet->indicators['DEBT']-value;
-$balanceSheet->indicators['INVENTORIES']-value;
-$balanceSheet->indicators['CURRENT_ASSETS']-value;
+$balanceSheet->indicators['HOME_AND_BANK_ACCOUNTS']->value;
+$balanceSheet->indicators['DEBT']->value;
+$balanceSheet->indicators['INVENTORIES']->value;
+$balanceSheet->indicators['CURRENT_ASSETS']->value;
 $balanceSheet->indicators['FIXED_ASSETS']->value;
 
 $balanceSheet->toArray(); // ['year' => '', 'tax_identification_number' => '', 'company_name' => '' ...]
 ```
+_For balance sheets, the indicators may vary depending on the type of company, as specified by ANAF. I recommend you to use var_dump to observe the type of indicators. The vast majority of companies have the indicators from the example above_
 
 ### [Info](https://static.anaf.ro/static/10/Anaf/Informatii_R/Servicii_web/doc_WS_V7.txt) Resource
 
