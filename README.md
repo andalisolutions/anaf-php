@@ -39,6 +39,40 @@ $company = Anaf::for('TAX IDENTIFICATION NUMBER');
 
 ## Usage
 
+### [Balance Sheet](https://static.anaf.ro/static/10/Anaf/Informatii_R/doc_WS_Bilant_V1.txt) Resource
+Get public information in the financial statements/annual accounting reports related to economic agents
+```php
+$balanceSheet = $company->balanceSheet()->forYear('2021');
+$balanceSheet->year;
+$balanceSheet->tax_identification_number;
+$balanceSheet->company_name;
+$balanceSheet->activity_code;
+$balanceSheet->activity_name;
+$balanceSheet->indicators; // array
+$balanceSheet->indicators['AVERAGE_NUMBER_OF_EMPLOYEES']->value;
+$balanceSheet->indicators['NET_LOSS']->value;
+$balanceSheet->indicators['NET_PROFIT']->value;
+$balanceSheet->indicators['GROSS_LOSS']->value;
+$balanceSheet->indicators['GROSS_PROFIT']->value;
+$balanceSheet->indicators['TOTAL_EXPENSES']->value;
+$balanceSheet->indicators['TOTAL_INCOME']->value;
+$balanceSheet->indicators['NET_TURNOVER']->value;
+$balanceSheet->indicators['HERITAGE_OF_THE_KINGDOM']->value;
+$balanceSheet->indicators['PAID_SUBSCRIBED_CAPITAL']->value;
+$balanceSheet->indicators['CAPITAL_TOTAL']->value;
+$balanceSheet->indicators['PROVISIONS']->value;
+$balanceSheet->indicators['ADVANCE_INCOME']->value;
+$balanceSheet->indicators['LIABILITIES']->value;
+$balanceSheet->indicators['PREPAYMENTS']->value;
+$balanceSheet->indicators['HOME_AND_BANK_ACCOUNTS']-value;
+$balanceSheet->indicators['DEBT']-value;
+$balanceSheet->indicators['INVENTORIES']-value;
+$balanceSheet->indicators['CURRENT_ASSETS']-value;
+$balanceSheet->indicators['FIXED_ASSETS']->value;
+
+$balanceSheet->toArray(); // ['year' => '', 'tax_identification_number' => '', 'company_name' => '' ...]
+```
+
 ### [Info](https://static.anaf.ro/static/10/Anaf/Informatii_R/Servicii_web/doc_WS_V7.txt) Resource
 
 Checking taxpayers who are registered according to art. 316 of the Fiscal Code in Romania, according to the Register of taxable persons who apply the VAT system upon receipt, according to the Register of inactive/reactive taxpayers, according to the Register of persons who apply the broken down payment of VAT and respectively the RO e-Invoice Register.
