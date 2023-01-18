@@ -22,7 +22,7 @@ final class ResourceUri implements Stringable
     /**
      * Creates a new ResourceUri value object that creates the given resource.
      */
-    public static function retreiveInfo(string $resource): self
+    public static function retrieveInfo(string $resource): self
     {
         return new self($resource);
     }

@@ -12,7 +12,7 @@ use Anaf\Contracts\Stringable;
 final class TaxIdentificationNumber implements Stringable
 {
     /**
-     * Creates a new API token value object.
+     * Creates a new tax identification number value object.
      */
     private function __construct(private readonly string $taxIndentificationNumber)
     {

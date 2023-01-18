@@ -37,7 +37,7 @@ final class Payload
     {
         $contentType = ContentType::JSON;
         $method = Method::POST;
-        $uri = ResourceUri::retreiveInfo($resource);
+        $uri = ResourceUri::retrieveInfo($resource);
 
         return new self($contentType, $method, $uri, $parameters);
     }
