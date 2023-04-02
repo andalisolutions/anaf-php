@@ -101,10 +101,11 @@ $companyInfo->vatRegistration;
 
 /* Accessible information in vat registration */
 $companyInfo->vatRegistration->status;
-$companyInfo->vatRegistration->startDate;
-$companyInfo->vatRegistration->stopDate;
-$companyInfo->vatRegistration->stopEffectiveDate;
-$companyInfo->vatRegistration->message;
+//vatPeriods is an array from ANAF v8
+$companyInfo->vatRegistration->vatPeriods[0]->startDate
+$companyInfo->vatRegistration->vatPeriods[0]->stopDate;
+$companyInfo->vatRegistration->vatPeriods[0]->stopEffectiveDate;
+$companyInfo->vatRegistration->vatPeriods[0]->message;
 
 $companyInfo->vatAtCheckout;
 
