@@ -6,7 +6,7 @@ use Anaf\ValueObjects\Transporter\Headers;
 use Anaf\ValueObjects\Transporter\Payload;
 
 it('has a method', function () {
-    $payload = Payload::create('PlatitorTvaRest/api/v7/ws/tva', []);
+    $payload = Payload::create('PlatitorTvaRest/api/v8/ws/tva', []);
 
     $baseUri = BaseUri::from('webservicesp.anaf.ro');
     $headers = Headers::withContentType(ContentType::JSON);
@@ -15,7 +15,7 @@ it('has a method', function () {
 });
 
 it('has a uri', function () {
-    $payload = Payload::create('PlatitorTvaRest/api/v7/ws/tva', [[]]);
+    $payload = Payload::create('PlatitorTvaRest/api/v8/ws/tva', [[]]);
 
     $baseUri = BaseUri::from('webservicesp.anaf.ro');
     $headers = Headers::withContentType(ContentType::JSON);
@@ -24,11 +24,11 @@ it('has a uri', function () {
 
     expect($uri->getHost())->toBe('webservicesp.anaf.ro')
         ->and($uri->getScheme())->toBe('https')
-        ->and($uri->getPath())->toBe('/PlatitorTvaRest/api/v7/ws/tva');
+        ->and($uri->getPath())->toBe('/PlatitorTvaRest/api/v8/ws/tva');
 });
 
 test('post tax identification number has a body', function () {
-    $payload = Payload::create('PlatitorTvaRest/api/v7/ws/tva', $parameters = [
+    $payload = Payload::create('PlatitorTvaRest/api/v8/ws/tva', $parameters = [
         [
             'cui' => '3874563',
             'data' => date('Y-m-d'),

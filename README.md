@@ -74,7 +74,7 @@ $balanceSheet->toArray(); // ['year' => '', 'tax_identification_number' => '', '
 ```
 _For balance sheets, the indicators may vary depending on the type of company, as specified by ANAF. I recommend you to use var_dump to observe the type of indicators. The vast majority of companies have the indicators from the example above_
 
-### [Info](https://static.anaf.ro/static/10/Anaf/Informatii_R/Servicii_web/doc_WS_V7.txt) Resource
+### [Info](https://static.anaf.ro/static/10/Anaf/Informatii_R/Servicii_web/doc_WS_V8.txt) Resource
 
 Checking taxpayers who are registered according to art. 316 of the Fiscal Code in Romania, according to the Register of taxable persons who apply the VAT system upon receipt, according to the Register of inactive/reactive taxpayers, according to the Register of persons who apply the broken down payment of VAT and respectively the RO e-Invoice Register.
 ```php
