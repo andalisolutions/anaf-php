@@ -24,11 +24,15 @@ function getCompanyInfo(): array
             'authority_name' => 'Serviciul Fiscal Municipal Câmpulung',
         ],
         'vat_registration' => [
-            'status' => false,
-            'start_date' => '',
-            'stop_date' => '',
-            'stop_effective_date' => '',
-            'message' => 'nu figureaza in registre ',
+            'status' => true,
+            'vat_periods' => [
+                [
+                    'start_date' => '2023-01-25',
+                    'stop_date' => '',
+                    'stop_effective_date' => '',
+                    'message' => '',
+                ],
+            ],
         ],
         'vat_at_checkout' => [
             'start_date' => '',
@@ -104,11 +108,15 @@ function getCompanyAnafInfo(): array
                     'organFiscalCompetent' => 'Serviciul Fiscal Municipal Câmpulung',
                 ],
                 'inregistrare_scop_Tva' => [
-                    'scpTVA' => false,
-                    'data_inceput_ScpTVA' => '',
-                    'data_sfarsit_ScpTVA' => '',
-                    'data_anul_imp_ScpTVA' => '',
-                    'mesaj_ScpTVA' => 'nu figureaza in registre ',
+                    'scpTVA' => true,
+                    'perioade_TVA' => [
+                        0 => [
+                            'data_inceput_ScpTVA' => '2023-01-25',
+                            'data_sfarsit_ScpTVA' => '',
+                            'data_anul_imp_ScpTVA' => '',
+                            'mesaj_ScpTVA' => '',
+                        ],
+                    ],
                 ],
                 'inregistrare_RTVAI' => [
                     'dataInceputTvaInc' => '',
