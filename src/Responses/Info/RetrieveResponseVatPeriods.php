@@ -15,7 +15,7 @@ final class RetrieveResponseVatPeriods
     }
 
     /**
-     * @param array{data_inceput_ScpTVA: ?string, data_sfarsit_ScpTVA: ?string, data_anul_imp_ScpTVA: ?string, mesaj_ScpTVA: ?string}  $attributes
+     * @param  array{data_inceput_ScpTVA: ?string, data_sfarsit_ScpTVA: ?string, data_anul_imp_ScpTVA: ?string, mesaj_ScpTVA: ?string}  $attributes
      */
     public static function from(array $attributes): self
     {

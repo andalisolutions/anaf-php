@@ -23,6 +23,7 @@ final class RetrieveResponseVatRegistration
         $vatPeriods = array_map(fn (array $result): RetrieveResponseVatPeriods => RetrieveResponseVatPeriods::from(
             $result
         ), $attributes['perioade_TVA']);
+
         return new self(
             $attributes['scpTVA'],
             $vatPeriods,
