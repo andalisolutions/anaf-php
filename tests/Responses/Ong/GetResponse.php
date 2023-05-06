@@ -7,16 +7,16 @@ test('from anaf', function () {
     expect($response)
         ->toBeInstanceOf(GetResponse::class)
         ->taxIdentificationNumber->toBe(123446)
-            ->searchDate->toBe(date('Y-m-d'))
-            ->entityName->toBe('ASOCIATIA TEST')
-            ->address->toBe('Campulung')
-            ->phone->toBe('0700000000')
-            ->postalCode->toBe('115100')
-            ->document->toBe('DOSAR 1/1/2023')
-            ->registrationStatus->toBe('INREGISTRAT din data 14.01.2023')
-            ->startDate->toBe('2023-01-14')
-            ->endDate->toBe(' ')
-            ->status->toBe(true);
+        ->searchDate->toBe(date('Y-m-d'))
+        ->entityName->toBe('ASOCIATIA TEST')
+        ->address->toBe('Campulung')
+        ->phone->toBe('0700000000')
+        ->postalCode->toBe('115100')
+        ->document->toBe('DOSAR 1/1/2023')
+        ->registrationStatus->toBe('INREGISTRAT din data 14.01.2023')
+        ->startDate->toBe('2023-01-14')
+        ->endDate->toBe(' ')
+        ->status->toBe(true);
 });
 
 test('to array', function () {

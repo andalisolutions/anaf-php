@@ -7,9 +7,9 @@ test('balance from anaf', function () {
     expect($response)
         ->toBeInstanceOf(GetResponse::class)
         ->taxIdentificationNumber->toBe(38744563)
-            ->companyName->toBe('ANDALI SOLUTIONS PRO SRL')
-            ->activityCode->toBe(6201)
-            ->indicators->toBeArray()->toHaveCount(20);
+        ->companyName->toBe('ANDALI SOLUTIONS PRO SRL')
+        ->activityCode->toBe(6201)
+        ->indicators->toBeArray()->toHaveCount(20);
 });
 
 test('to array', function () {
