@@ -22,11 +22,14 @@ final class RetrieveResponseGeneralData
         public readonly string $bankAccount,
         public readonly bool $roInvoiceStatus,
         public readonly string $authorityName,
+        public readonly string $formOfOwnership,
+        public readonly string $organizationalForm,
+        public readonly string $legalForm,
     ) {
     }
 
     /**
-     * @param  array{cui: int, data: string, denumire: string, adresa: string, nrRegCom: string, telefon: string, fax: string, codPostal: string, act: string, stare_inregistrare: string, data_inregistrare: string, cod_CAEN: string, iban: string, statusRO_e_Factura: bool, organFiscalCompetent: string}  $attributes
+     * @param  array{cui: int, data: string, denumire: string, adresa: string, nrRegCom: string, telefon: string, fax: string, codPostal: string, act: string, stare_inregistrare: string, data_inregistrare: string, cod_CAEN: string, iban: string, statusRO_e_Factura: bool, organFiscalCompetent: string, forma_de_proprietate: string, forma_organizare: string, forma_juridica: string}  $attributes
      */
     public static function from(array $attributes): self
     {
@@ -46,11 +49,14 @@ final class RetrieveResponseGeneralData
             $attributes['iban'],
             $attributes['statusRO_e_Factura'],
             $attributes['organFiscalCompetent'],
+            $attributes['forma_de_proprietate'],
+            $attributes['forma_organizare'],
+            $attributes['forma_juridica'],
         );
     }
 
     /**
-     * @return array{tax_identification_number: int, search_date: string, company_name: string, address: string, registration_number: string, phone: string, fax: string, postal_code: string, document: string, registration_status: string, registration_date: string, activity_code: string, bank_account: string, ro_invoice_status: bool, authority_name: string}
+     * @return array{tax_identification_number: int, search_date: string, company_name: string, address: string, registration_number: string, phone: string, fax: string, postal_code: string, document: string, registration_status: string, registration_date: string, activity_code: string, bank_account: string, ro_invoice_status: bool, authority_name: string, form_of_ownership: string, organizational_form: string, legal_form: string}
      */
     public function toArray(): array
     {
@@ -70,6 +76,9 @@ final class RetrieveResponseGeneralData
             'bank_account' => $this->bankAccount,
             'ro_invoice_status' => $this->roInvoiceStatus,
             'authority_name' => $this->authorityName,
+            'form_of_ownership' => $this->formOfOwnership,
+            'organizational_form' => $this->organizationalForm,
+            'legal_form' => $this->legalForm,
         ];
     }
 }
