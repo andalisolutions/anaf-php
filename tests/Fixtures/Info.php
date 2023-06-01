@@ -22,6 +22,9 @@ function getCompanyInfo(): array
             'bank_account' => '',
             'ro_invoice_status' => false,
             'authority_name' => 'Serviciul Fiscal Municipal Câmpulung',
+            'form_of_ownership' => 'PROPR.PRIVATA-CAPITAL PRIVAT AUTOHTON',
+            'organizational_form' => 'PERSOANA JURIDICA',
+            'legal_form' => 'SOCIETATE COMERCIALĂ CU RĂSPUNDERE LIMITAT',
         ],
         'vat_registration' => [
             'status' => true,
@@ -106,6 +109,9 @@ function getCompanyAnafInfo(): array
                     'iban' => '',
                     'statusRO_e_Factura' => false,
                     'organFiscalCompetent' => 'Serviciul Fiscal Municipal Câmpulung',
+                    'forma_de_proprietate' => 'PROPR.PRIVATA-CAPITAL PRIVAT AUTOHTON',
+                    'forma_organizare' => 'PERSOANA JURIDICA',
+                    'forma_juridica' => 'SOCIETATE COMERCIALĂ CU RĂSPUNDERE LIMITAT',
                 ],
                 'inregistrare_scop_Tva' => [
                     'scpTVA' => true,
