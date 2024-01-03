@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Anaf\Resources;
 
-use Anaf\Responses\Ngo\GetResponse;
+use Anaf\Responses\Ngo\CreateResponse;
+use Anaf\Responses\Ngo\CreateResponses;
 use Anaf\ValueObjects\Transporter\Payload;
 
-final class Ngo
+class Ngo
 {
     use Concerns\Transportable;
 
@@ -15,23 +16,22 @@ final class Ngo
      * Get public info about the given tax identification number if are registered in the Register of religious entities/units
      *
      * @see https://static.anaf.ro/static/10/Anaf/Informatii_R/index_cult_v2.html
+     *
+     * @param  list<array{cui: string, data: string}>  $parameters
      */
-    public function get(): GetResponse
+    public function create(array $parameters): CreateResponse|CreateResponses
     {
-        $parameters = [
-            [
-                'cui' => $this->taxIdentificationNumber->toString(),
-                'data' => date('Y-m-d'),
-            ],
-        ];
-
         $payload = Payload::create('RegCult/api/v2/ws/cult', $parameters);
 
         /**
-         * @var array{cod: int, message: string, found: array<int, array{cui: int, data: string, denumire: string, adresa: string, nrRegCom: string, telefon: string, fax: string, codPostal: string, act: string, stare_inregistrare: string, dataInceputRegCult: string, dataAnulareRegCult: string, statusRegCult: bool}>, notFound: array<int,string>} $result
+         * @var array{cod: int, message: string, found: array<int, array{cui: int, data: string, denumire: string, adresa: string, nrRegCom: string, telefon: string, fax: string, codPostal: string, act: string, stare_inregistrare: string, dataInceputRegCult: string, dataAnulareRegCult: string, statusRegCult: bool}>, notFound: array<int,string>} $response
          */
-        $result = $this->transporter->requestObject($payload);
+        $response = $this->transporter->requestObject($payload);
 
-        return GetResponse::from($result['found'][0]);
+        if (count($response['found']) > 1) {
+            return CreateResponses::from($response['found']);
+        }
+
+        return CreateResponse::from($response['found'][0]);
     }
 }

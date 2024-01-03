@@ -4,27 +4,30 @@ declare(strict_types=1);
 
 namespace Anaf\Resources;
 
-use Anaf\Responses\BalanceSheet\GetResponse;
+use Anaf\Responses\BalanceSheet\CreateResponse;
 use Anaf\ValueObjects\Transporter\Payload;
 
-final class BalanceSheet
+class BalanceSheet
 {
     use Concerns\Transportable;
 
     /**
-     * Get public info about the given tax identification number if are registered in the Register of religious entities/units
+     * Web service for obtaining public information from the financial
+     * statements/annual accounting reports of economic agents
      *
-     * @see https://static.anaf.ro/static/10/Anaf/Informatii_R/index_cult_v2.html
+     * @see https://static.anaf.ro/static/10/Anaf/Informatii_R/doc_WS_Bilant_V1.txt
+     *
+     * @param  array{cui: string, an: string}  $parameters
      */
-    public function forYear(string $year): GetResponse
+    public function create(array $parameters): CreateResponse
     {
-        $payload = Payload::get('bilant', $this->taxIdentificationNumber->toString(), $year);
+        $payload = Payload::get('bilant', $parameters);
 
         /**
          * @var array{an: int, cui: int, deni: string, caen: int, den_caen: string, i: array<int, array{indicator: string, val_indicator: int, val_den_indicator: string}>} $result
          */
         $result = $this->transporter->requestObject($payload);
 
-        return GetResponse::from($result);
+        return CreateResponse::from($result);
     }
 }

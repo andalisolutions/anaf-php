@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Anaf\Responses\BalanceSheet;
 
-final class RetrieveResponseIndicators
+class RetrieveResponseIndicators
 {
     private function __construct(
         public readonly string $indicator,

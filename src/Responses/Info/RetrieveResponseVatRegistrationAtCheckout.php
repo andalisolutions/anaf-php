@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Anaf\Responses\Info;
 
-final class RetrieveResponseVatRegistrationAtCheckout
+class RetrieveResponseVatRegistrationAtCheckout
 {
     private function __construct(
         public readonly string $startDate,

@@ -7,7 +7,7 @@ namespace Anaf\Exceptions;
 use Exception;
 use Psr\Http\Client\ClientExceptionInterface;
 
-final class TransporterException extends Exception
+class TransporterException extends Exception
 {
     /**
      * Creates a new Exception instance.

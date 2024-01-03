@@ -10,4 +10,6 @@ namespace Anaf\Enums\Transporter;
 enum ContentType: string
 {
     case JSON = 'application/json';
+    case ALL = '*/*';
+    case TEXT = 'text/plain';
 }

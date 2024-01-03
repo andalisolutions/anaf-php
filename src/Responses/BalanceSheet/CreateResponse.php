@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Anaf\Responses\BalanceSheet;
 
-use Anaf\Contracts\Indicator;
 use Anaf\Contracts\Response;
 use Anaf\Enums\BalanceSheet\BL;
 use Anaf\Enums\BalanceSheet\OL;
 use Anaf\Responses\Concerns\ArrayAccessible;
+use BackedEnum;
 
 /**
  * @implements Response<array{year: int, tax_identification_number: int, company_name: string, activity_code: int, activity_name: string, indicators: array<string, array{indicator: string, value: int, indicator_name: string}>}>
  */
-final class GetResponse implements Response
+class CreateResponse implements Response
 {
     /**
      * @use ArrayAccessible<array{year: int, tax_identification_number: int, company_name: string, activity_code: int, activity_name: string, indicators: array<string, array{indicator: string, value: int, indicator_name: string}>}>
@@ -45,13 +45,13 @@ final class GetResponse implements Response
          * @see https://static.anaf.ro/static/10/Anaf/Declaratii_R/AplicatiiDec/UniversalCode_2012.pdf for indicators type
          */
 
+        /** @var BackedEnum $indicatorType */
         $indicatorType = match ($attributes['i'][0]['val_den_indicator']) {
-            'Numar mediu de salariati' => BL::class,
             'Efectivul de personal privind activitatile economice' => OL::class,
             default => BL::class,
         };
 
-        $indicators = array_reduce($attributes['i'], function (array $result, $item) use ($indicatorType): array {
+        $indicators = array_reduce($attributes['i'], function (array $result, array $item) use ($indicatorType): array {
             $replaceDiacritics = (string) iconv('UTF-8', 'ASCII//TRANSLIT', $item['val_den_indicator']);
             $key = str_replace(['  ', ':'], [' ', ''], trim(strtoupper($replaceDiacritics)));
             $cleanKey = (string) preg_replace('/ - LA (\d{2}\.\d{2}\.\d{4})/', '', $key);

@@ -3,30 +3,36 @@
 declare(strict_types=1);
 
 use Anaf\Client;
-use Anaf\Enums\Transporter\ContentType;
-use Anaf\Transporters\HttpTransporter;
-use Anaf\ValueObjects\TaxIdentificationNumber;
-use Anaf\ValueObjects\Transporter\BaseUri;
-use Anaf\ValueObjects\Transporter\Headers;
-use GuzzleHttp\Client as GuzzleClient;
+use Anaf\Factory;
 
-final class Anaf
+class Anaf
 {
     /**
-     * Creates a new Anaf Client with the given Tax Identification Number (romanian CUI).
+     * Creates a new Anaf Authorized Client with the given api key.
      */
-    public static function for(string $taxIdentificationNumber): Client
+    public static function authorizedClient(string $apiKey): Client
     {
-        $taxIdentificationNumber = TaxIdentificationNumber::from($taxIdentificationNumber);
+        return self::factory()
+            ->withApiKey($apiKey)
+            ->withBaseUri('api.anaf.ro')
+            ->make();
+    }
 
-        $baseUri = BaseUri::from('webservicesp.anaf.ro');
+    /**
+     * Creates a new Anaf Client for non-authorized requests.
+     */
+    public static function client(): Client
+    {
+        return self::factory()
+            ->withBaseUri('webservicesp.anaf.ro')
+            ->make();
+    }
 
-        $headers = Headers::withContentType(ContentType::JSON);
-
-        $client = new GuzzleClient();
-
-        $transporter = new HttpTransporter($client, $baseUri, $headers);
-
-        return new Client($transporter, $taxIdentificationNumber);
+    /**
+     * Creates a new factory instance to configure a custom Open AI Client
+     */
+    public static function factory(): Factory
+    {
+        return new Factory();
     }
 }

@@ -6,7 +6,7 @@ namespace Anaf\Exceptions;
 
 use Exception;
 
-final class TaxIdentificationNumberNotFoundException extends Exception
+class TaxIdentificationNumberNotFoundException extends Exception
 {
     public function __construct()
     {

@@ -1,21 +1,30 @@
 <?php
 
+use Anaf\Resources\BalanceSheet;
+use Anaf\Resources\Efactura;
 use Anaf\Resources\Info;
+use Anaf\Resources\Ngo;
 
 it('has info', function () {
-    $company = Anaf::for('38744563');
+    $client = Anaf::client();
 
-    expect($company->info())->toBeInstanceOf(Info::class);
+    expect($client->info())->toBeInstanceOf(Info::class);
 });
 
 it('has ngo', function () {
-    $company = Anaf::for('38744563');
+    $client = Anaf::client();
 
-    expect($company->ngo())->toBeInstanceOf(\Anaf\Resources\Ngo::class);
+    expect($client->ngo())->toBeInstanceOf(Ngo::class);
 });
 
 it('has balance sheet', function () {
-    $company = Anaf::for('38744563');
+    $client = Anaf::client();
 
-    expect($company->balanceSheet())->toBeInstanceOf(\Anaf\Resources\BalanceSheet::class);
+    expect($client->balanceSheet())->toBeInstanceOf(BalanceSheet::class);
+});
+
+it('has spv', function () {
+    $client = Anaf::client();
+
+    expect($client->efactura())->toBeInstanceOf(Efactura::class);
 });

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Anaf\Responses\Info;
 
-final class RetrieveResponseVatRegistration
+class RetrieveResponseVatRegistration
 {
     /**
      * @param  array<int, RetrieveResponseVatPeriods>  $vatPeriods

@@ -7,7 +7,7 @@ function getNgoInfo(): array
 {
     return [
         'tax_identification_number' => 123446,
-        'search_date' => date('Y-m-d'),
+        'search_date' => '2023-01-01',
         'entity_name' => 'ASOCIATIA TEST',
         'address' => 'Campulung',
         'phone' => '0700000000',
@@ -31,7 +31,46 @@ function getNgoAnafInfo(): array
         'found' => [
             [
                 'cui' => 123446,
-                'data' => date('Y-m-d'),
+                'data' => '2023-01-01',
+                'denumire' => 'ASOCIATIA TEST',
+                'adresa' => 'Campulung',
+                'telefon' => '0700000000',
+                'codPostal' => '115100',
+                'act' => 'DOSAR 1/1/2023',
+                'stare_inregistrare' => 'INREGISTRAT din data 14.01.2023',
+                'dataInceputRegCult' => '2023-01-14',
+                'dataAnulareRegCult' => ' ',
+                'statusRegCult' => true,
+            ],
+        ],
+    ];
+}
+
+/**
+ * @return array<string, mixed>
+ */
+function getMultipleNgoAnafInfo(): array
+{
+    return [
+        'cod' => 200,
+        'message' => 'SUCCESS',
+        'found' => [
+            [
+                'cui' => 123446,
+                'data' => '2023-01-01',
+                'denumire' => 'ASOCIATIA TEST',
+                'adresa' => 'Campulung',
+                'telefon' => '0700000000',
+                'codPostal' => '115100',
+                'act' => 'DOSAR 1/1/2023',
+                'stare_inregistrare' => 'INREGISTRAT din data 14.01.2023',
+                'dataInceputRegCult' => '2023-01-14',
+                'dataAnulareRegCult' => ' ',
+                'statusRegCult' => true,
+            ],
+            [
+                'cui' => 123446,
+                'data' => '2023-01-01',
                 'denumire' => 'ASOCIATIA TEST',
                 'adresa' => 'Campulung',
                 'telefon' => '0700000000',
