@@ -1,4 +1,4 @@
-name: Formats
+name: Tests
 
 on: ['push', 'pull_request']
 
@@ -13,7 +13,7 @@ jobs:
         php: [8.1, 8.2, 8.3]
         dependency-version: [prefer-stable]
 
-    name: Formats P${{ matrix.php }} - ${{ matrix.os }} - ${{ matrix.dependency-version }}
+    name: Tests P${{ matrix.php }} - ${{ matrix.os }} - ${{ matrix.dependency-version }}
 
     steps:
 
