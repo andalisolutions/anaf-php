@@ -1,11 +1,11 @@
 <?php
 
-use Anaf\Responses\BalanceSheet\GetResponse;
+use Anaf\Responses\BalanceSheet\CreateResponse;
 
 test('balance from anaf', function () {
-    $response = GetResponse::from(getAnafBalanceSheet());
+    $response = CreateResponse::from(getAnafBalanceSheet());
     expect($response)
-        ->toBeInstanceOf(GetResponse::class)
+        ->toBeInstanceOf(CreateResponse::class)
         ->taxIdentificationNumber->toBe(38744563)
         ->companyName->toBe('ANDALI SOLUTIONS PRO SRL')
         ->activityCode->toBe(6201)
@@ -13,7 +13,7 @@ test('balance from anaf', function () {
 });
 
 test('to array', function () {
-    $response = GetResponse::from(getAnafBalanceSheet());
+    $response = CreateResponse::from(getAnafBalanceSheet());
 
     expect($response->toArray())
         ->toBeArray()
@@ -21,7 +21,7 @@ test('to array', function () {
 });
 
 test('as array accessible', function () {
-    $response = GetResponse::from(getAnafBalanceSheet());
+    $response = CreateResponse::from(getAnafBalanceSheet());
 
     expect($response['company_name'])->toBe('ANDALI SOLUTIONS PRO SRL');
 });

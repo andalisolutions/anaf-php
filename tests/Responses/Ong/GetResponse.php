@@ -1,13 +1,13 @@
 <?php
 
-use Anaf\Responses\Ngo\GetResponse;
+use Anaf\Responses\Ngo\CreateResponse;
 
 test('from anaf', function () {
-    $response = GetResponse::from(getNgoAnafInfo()['found'][0]);
+    $response = CreateResponse::from(getNgoAnafInfo()['found'][0]);
     expect($response)
-        ->toBeInstanceOf(GetResponse::class)
+        ->toBeInstanceOf(CreateResponse::class)
         ->taxIdentificationNumber->toBe(123446)
-        ->searchDate->toBe(date('Y-m-d'))
+        ->searchDate->toBe('2023-01-01')
         ->entityName->toBe('ASOCIATIA TEST')
         ->address->toBe('Campulung')
         ->phone->toBe('0700000000')
@@ -20,7 +20,7 @@ test('from anaf', function () {
 });
 
 test('to array', function () {
-    $response = GetResponse::from(getNgoAnafInfo()['found'][0]);
+    $response = CreateResponse::from(getNgoAnafInfo()['found'][0]);
 
     expect($response->toArray())
         ->toBeArray()
@@ -28,7 +28,7 @@ test('to array', function () {
 });
 
 test('as array accessible', function () {
-    $response = GetResponse::from(getNgoAnafInfo()['found'][0]);
+    $response = CreateResponse::from(getNgoAnafInfo()['found'][0]);
 
     expect($response['entity_name'])->toBe('ASOCIATIA TEST');
 });

@@ -8,6 +8,7 @@ use Anaf\Transporters\HttpTransporter;
 use Anaf\ValueObjects\Transporter\BaseUri;
 use Anaf\ValueObjects\Transporter\Headers;
 use Anaf\ValueObjects\Transporter\Payload;
+use Anaf\ValueObjects\Transporter\QueryParams;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Psr7\Request as Psr7Request;
 use GuzzleHttp\Psr7\Response;
@@ -19,7 +20,8 @@ beforeEach(function () {
     $this->http = new HttpTransporter(
         $this->client,
         BaseUri::from('webservicesp.anaf.ro'),
-        Headers::withContentType(ContentType::JSON),
+        Headers::create()->withContentType(ContentType::JSON),
+        QueryParams::create()->withParam('cui', '38744563')
     );
 });
 
@@ -116,12 +118,13 @@ test('request object client errors', function () {
     $payload = Payload::create('PlatitorTvaRest/api/v8/ws/tva', []);
 
     $baseUri = BaseUri::from('webservicesp.anaf.ro');
-    $headers = Headers::withContentType(ContentType::JSON);
+    $headers = Headers::create()->withContentType(ContentType::JSON);
+    $queryParams = QueryParams::create()->withParam('cui', '38744563');
 
     $this->client
         ->shouldReceive('sendRequest')
         ->once()
-        ->andThrow(new ConnectException('Could not resolve host.', $payload->toRequest($baseUri, $headers)));
+        ->andThrow(new ConnectException('Could not resolve host.', $payload->toRequest($baseUri, $headers, $queryParams)));
 
     expect(fn () => $this->http->requestObject($payload))->toThrow(function (TransporterException $e) {
         expect($e->getMessage())->toBe('Could not resolve host.')

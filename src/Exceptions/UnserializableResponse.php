@@ -7,7 +7,7 @@ namespace Anaf\Exceptions;
 use Exception;
 use JsonException;
 
-final class UnserializableResponse extends Exception
+class UnserializableResponse extends Exception
 {
     /**
      * Creates a new Exception instance.

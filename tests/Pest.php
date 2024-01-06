@@ -1,35 +1,54 @@
 <?php
 
 use Anaf\Client;
-use Anaf\Contracts\Transporter;
-use Anaf\Enums\Transporter\ContentType;
-use Anaf\ValueObjects\TaxIdentificationNumber;
+use Anaf\Contracts\FileContract;
+use Anaf\Contracts\Response;
+use Anaf\Contracts\TransporterContract;
+use Anaf\ValueObjects\ApiKey;
 use Anaf\ValueObjects\Transporter\BaseUri;
 use Anaf\ValueObjects\Transporter\Headers;
 use Anaf\ValueObjects\Transporter\Payload;
+use Anaf\ValueObjects\Transporter\QueryParams;
+use Psr\Http\Message\ResponseInterface;
 
-function mockClient(string $method, string $resource, array $params, array|string $response, $methodName = 'requestObject')
+function mockClient(string $method, string $resource, Response|ResponseInterface|string|array $response, $methodName = 'requestObject')
 {
-    $transporter = Mockery::mock(Transporter::class);
-    $taxIdentificationNumber = TaxIdentificationNumber::from(38744563);
+    $transporter = Mockery::mock(TransporterContract::class);
 
     $transporter
         ->shouldReceive($methodName)
         ->once()
         ->withArgs(function (Payload $payload) use ($method, $resource) {
             $baseUri = BaseUri::from('webservicesp.anaf.ro');
-            $headers = Headers::withContentType(ContentType::JSON);
+            $headers = Headers::create();
+            $queryParams = QueryParams::create();
 
-            $request = $payload->toRequest($baseUri, $headers);
+            $request = $payload->toRequest($baseUri, $headers, $queryParams);
 
             return $request->getMethod() === $method
-                && $request->getUri()->getPath() === "/$resource";
+                && $request->getUri()->getPath() === $resource;
         })->andReturn($response);
 
-    return new Client($transporter, $taxIdentificationNumber);
+    return new Client($transporter);
 }
 
-function mockContentClient(string $method, string $resource, array $params, string $response)
+function mockAuthorizedClient(string $method, string $resource, Response|ResponseInterface|FileContract|string|array $response, $methodName = 'requestObject')
 {
-    return mockClient($method, $resource, $params, $response, 'requestContent');
+    $transporter = Mockery::mock(TransporterContract::class);
+
+    $transporter
+        ->shouldReceive($methodName)
+        ->once()
+        ->withArgs(function (Payload $payload) use ($method, $resource) {
+            $baseUri = BaseUri::from('api.anaf.ro');
+            $headers = Headers::withAuthorization(ApiKey::from('foo'));
+            $queryParams = QueryParams::create();
+
+            $request = $payload->toRequest($baseUri, $headers, $queryParams);
+
+            return $request->getMethod() === $method
+                && $request->getUri()->getPath() === $resource;
+        })->andReturn($response);
+
+    return new Client($transporter);
 }

@@ -12,7 +12,7 @@ use Anaf\ValueObjects\Transporter\Payload;
 /**
  * @internal
  */
-interface Transporter
+interface TransporterContract
 {
     /**
      * Sends a request to a server.
@@ -22,4 +22,6 @@ interface Transporter
      * @throws UnserializableResponse|TransporterException|TaxIdentificationNumberNotFoundException
      */
     public function requestObject(Payload $payload): array;
+
+    public function requestFile(Payload $payload): FileContract;
 }

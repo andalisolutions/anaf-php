@@ -8,9 +8,9 @@ use Anaf\Contracts\Response;
 use Anaf\Responses\Concerns\ArrayAccessible;
 
 /**
- * @implements Response<array{tax_identification_number: int, search_date: string, entity_name: string, address: string, phone: string, postal_code: string, document: string, start_date: string, end_date: string, status: bool}>
+ * @implements Response<array{tax_identification_number: int, search_date: string, entity_name: string, address: string, phone: string, postal_code: string, document: string, registration_status: string, start_date: string, end_date: string, status: bool}>
  */
-final class GetResponse implements Response
+class CreateResponse implements Response
 {
     /**
      * @use ArrayAccessible<array{tax_identification_number: int, search_date: string, entity_name: string, address: string, phone: string, postal_code: string, document: string, registration_status: string, start_date: string, end_date: string, status: bool}>

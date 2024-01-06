@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Anaf\Responses\Info;
 
-final class RetrieveResponseGeneralData
+class RetrieveResponseGeneralData
 {
     private function __construct(
         public readonly int $taxIdentificationNumber,
@@ -29,7 +29,9 @@ final class RetrieveResponseGeneralData
     }
 
     /**
-     * @param  array{cui: int, data: string, denumire: string, adresa: string, nrRegCom: string, telefon: string, fax: string, codPostal: string, act: string, stare_inregistrare: string, data_inregistrare: string, cod_CAEN: string, iban: string, statusRO_e_Factura: bool, organFiscalCompetent: string }  $attributes
+     * Acts as static factory, and returns a new Response instance.
+     *
+     * @param  array{cui: int, data: string, denumire: string, adresa: string, nrRegCom: string, telefon: string, fax: string, codPostal: string, act: string, stare_inregistrare: string, data_inregistrare: string, cod_CAEN: string, iban: string, statusRO_e_Factura: bool, organFiscalCompetent: string, forma_de_proprietate: string, forma_organizare: string, forma_juridica: string}  $attributes
      */
     public static function from(array $attributes): self
     {
