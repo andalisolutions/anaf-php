@@ -43,7 +43,7 @@ $factoryClient = Anaf::factory()
                         ->withBaseUri('https://webservicesp.anaf.ro')
                         ->make();  
 ```
-
+#### You can obtain API key using [oauth2-anaf](https://github.com/andalisolutions/oauth2-anaf) package.
 ## TODO
 - [x] Obtaining public information in the financial statements/annual accounting reports related to economic agents. ([Docs](https://static.anaf.ro/static/10/Anaf/Informatii_R/doc_WS_Bilant_V1.txt))
 - [x] Get info about companies using `TAX IDENTIFICATION NUMBER` (CUI/Vat Number). ([Docs](https://static.anaf.ro/static/10/Anaf/Informatii_R/Servicii_web/doc_WS_V7.txt))
