@@ -29,7 +29,7 @@ class Anaf
     }
 
     /**
-     * Creates a new factory instance to configure a custom Open AI Client
+     * Creates a new factory instance to configure a custom ANAF Client
      */
     public static function factory(): Factory
     {

@@ -74,7 +74,7 @@ class Factory
     }
 
     /**
-     * Creates a new Open AI Client.
+     * Creates a new ANAF Client.
      */
     public function make(): Client
     {
