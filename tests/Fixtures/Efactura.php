@@ -33,6 +33,17 @@ function getEfacturaMessages(): array
 
 }
 
+function getUploadMessage(): array
+{
+    return [
+        '@attributes' => [
+            'dateResponse' => '202108051140',
+            'ExecutionStatus' => '0',
+            'index_incarcare' => '3828',
+        ],
+    ];
+}
+
 function getFakeFile(string $content = 'dummy zile file content')
 {
     return new FileHandler($content);

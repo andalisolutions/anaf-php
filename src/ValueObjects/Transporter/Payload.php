@@ -6,6 +6,7 @@ namespace Anaf\ValueObjects\Transporter;
 
 use Anaf\Enums\Transporter\ContentType;
 use Anaf\Enums\Transporter\Method;
+use Anaf\Factory;
 use Anaf\ValueObjects\ResourceUri;
 use Http\Discovery\Psr17Factory;
 use Psr\Http\Message\RequestInterface;
@@ -79,11 +80,15 @@ class Payload
     {
         $psr17Factory = new Psr17Factory();
 
-        $uri = $baseUri->toString().$this->uri->toString();
+        $uri = $this->buildUri($baseUri);
 
         $queryParams = $queryParams->toArray();
 
         if ($this->method === Method::GET) {
+            $queryParams = [...$queryParams, ...$this->parameters];
+        }
+
+        if ($this->method === Method::POST && $this->contentType === ContentType::ALL) {
             $queryParams = [...$queryParams, ...$this->parameters];
         }
 
@@ -111,5 +116,16 @@ class Payload
         }
 
         return $request;
+    }
+
+    private function buildUri(BaseUri $baseUri): string
+    {
+        $uri = $baseUri->toString().$this->uri->toString();
+
+        if (! Factory::isStaging()) {
+            return $uri;
+        }
+
+        return str_replace('prod/', 'test/', $uri);
     }
 }

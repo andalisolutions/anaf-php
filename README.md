@@ -240,7 +240,22 @@ $entityInfo->toArray(); // ["tax_identification_number" => '', "entity_name" => 
 ### [eFactura](https://mfinante.gov.ro/web/efactura/informatii-tehnice) Resource
 
 #### [Upload](https://mfinante.gov.ro/static/10/eFactura/upload.html) Resource
-TODO: implement `upload` from [here](hhttps://mfinante.gov.ro/static/10/eFactura/upload.html)
+
+Upload an XML (eFactura) file to the SPV
+
+TODO: improve error handling
+
+```php
+$upload = $authorizedClient->efactura()->upload(
+    xml_path: $pathToXmlFile,
+    taxIdentificationNumber: '12345678',
+    //standard: UploadStandard::UBL, // default value is UBL
+    //extern: false, // default value is false
+);
+$upload->responseDate, // 202401011640
+$upload->executionStatus,
+$upload->uploadIndex,
+```
 
 #### [Status](https://mfinante.gov.ro/static/10/eFactura/upload.html) Resource
 TODO: implement `status` from [here](https://mfinante.gov.ro/static/10/eFactura/staremesaj.html)
@@ -290,8 +305,6 @@ Convert XML eFactura to PDF. For this endpoint you need to use unauthenticated c
 $file = $client->efactura()->xmlToPdf($pathToXmlFile, $xmlStandard);
 $file->getContent(); // string - You can save the pdf content to a file
 ```
-
-TODO: implement `/transformare/{standard}/{novld}` from [here](https://mfinante.gov.ro/static/10/eFactura/xmltopdf.html#/EFacturaXmlToPdf/getPdfNoVld)
 
 ---
 
