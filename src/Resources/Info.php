@@ -21,8 +21,8 @@ class Info
      *
      * @see https://static.anaf.ro/static/10/Anaf/Informatii_R/Servicii_web/doc_WS_V8.txt
      *
-     * @param list<array{cui: string, data: string}> $parameters
-     * @return CreateResponse|CreateResponses
+     * @param  list<array{cui: string, data: string}>  $parameters
+     *
      * @throws TaxIdentificationNumberNotFoundException
      * @throws TransporterException
      * @throws UnserializableResponse
