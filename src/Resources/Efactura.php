@@ -6,7 +6,6 @@ namespace Anaf\Resources;
 
 use Anaf\Contracts\FileContract;
 use Anaf\Enums\Efactura\UploadStandard;
-use Anaf\Enums\Transporter\ContentType;
 use Anaf\Responses\Efactura\CreateMessagesResponse;
 use Anaf\Responses\Efactura\CreateUploadResponse;
 use Anaf\ValueObjects\Transporter\Payload;
@@ -35,7 +34,6 @@ class Efactura
                 'standard' => $standard->value,
                 ...($extern ? ['extern' => 'DA'] : []),
             ],
-            contentType: ContentType::ALL,
         );
 
         /** @var array<array-key, array{dateResponse: string, ExecutionStatus: string, index_incarcare: string}> $response */

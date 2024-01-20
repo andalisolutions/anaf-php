@@ -66,9 +66,10 @@ class HttpTransporter implements TransporterContract
                 throw new UnserializableResponse($jsonException);
             }
 
-            $jsonResponse = json_encode($xml);
+            try {
+                $jsonResponse = json_encode($xml, JSON_THROW_ON_ERROR);
 
-            if ($jsonResponse === false) {
+            } catch (JsonException $jsonException) {
                 throw new UnserializableResponse($jsonException);
             }
 

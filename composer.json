@@ -12,10 +12,10 @@
     "require": {
         "php": "^8.1.0",
         "ext-iconv": "*",
-        "guzzlehttp/guzzle": "^7.5.0",
-        "php-http/discovery": "^1.19",
+        "ext-libxml": "*",
         "ext-simplexml": "*",
-        "ext-libxml": "*"
+        "guzzlehttp/guzzle": "^7.5.0",
+        "php-http/discovery": "^1.19"
     },
     "require-dev": {
         "laravel/pint": "^1.13.7",
@@ -25,8 +25,7 @@
         "pestphp/pest-plugin-arch": "^2.5",
         "pestphp/pest-plugin-type-coverage": "^2.7",
         "phpstan/phpstan": "^1.10.54",
-        "rector/rector": "^0.18.13",
-        "spatie/ray": "^1.40",
+        "rector/rector": "^0.17.13",
         "symfony/var-dumper": "^6.2.2"
     },
     "autoload": {

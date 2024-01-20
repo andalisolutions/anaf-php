@@ -12,7 +12,7 @@ test('upload', function () {
         xml_path: __DIR__.'/../Fixtures/dummyxml.xml',
         tax_identification_number: '8000000000',
     );
-    ray($response);
+
     expect($response)->toBeInstanceOf(CreateUploadResponse::class);
 });
 
