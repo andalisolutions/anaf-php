@@ -40,7 +40,7 @@ class Info
          */
         $response = $this->transporter->requestObject($payload);
 
-        if (count($response['found']) === 0) {
+        if ($response['found'] === []) {
             throw new TaxIdentificationNumberNotFoundException();
         }
 
