@@ -6,6 +6,7 @@ namespace Anaf\ValueObjects\Transporter;
 
 use Anaf\Enums\Transporter\ContentType;
 use Anaf\Enums\Transporter\Method;
+use Anaf\Factory;
 use Anaf\ValueObjects\ResourceUri;
 use Http\Discovery\Psr17Factory;
 use Psr\Http\Message\RequestInterface;
@@ -23,6 +24,7 @@ class Payload
      */
     private function __construct(
         private readonly ContentType $contentType,
+        private readonly ContentType $acceptContentType,
         private readonly Method $method,
         private readonly ResourceUri $uri,
         private readonly array $parameters = [],
@@ -39,10 +41,11 @@ class Payload
     public static function create(string $resource, array $parameters): self
     {
         $contentType = ContentType::JSON;
+        $acceptContentType = ContentType::JSON;
         $method = Method::POST;
         $uri = ResourceUri::create($resource);
 
-        return new self($contentType, $method, $uri, $parameters);
+        return new self($contentType, $acceptContentType, $method, $uri, $parameters);
     }
 
     /**
@@ -50,12 +53,14 @@ class Payload
      *
      * @param  array<array-key, string>  $parameters
      */
-    public static function upload(string $resource, string $body, array $parameters = [], ContentType $contentType = ContentType::TEXT): self
+    public static function upload(string $resource, string $body, array $parameters = []): self
     {
         $method = Method::POST;
         $uri = ResourceUri::create($resource);
+        $contentType = ContentType::TEXT;
+        $acceptContentType = ContentType::ALL;
 
-        return new self($contentType, $method, $uri, $parameters, $body);
+        return new self($contentType, $acceptContentType, $method, $uri, $parameters, $body);
     }
 
     /**
@@ -66,10 +71,11 @@ class Payload
     public static function get(string $resource, array $parameters): self
     {
         $contentType = ContentType::JSON;
+        $acceptContentType = ContentType::JSON;
         $method = Method::GET;
         $uri = ResourceUri::get($resource);
 
-        return new self($contentType, $method, $uri, $parameters);
+        return new self($contentType, $acceptContentType, $method, $uri, $parameters);
     }
 
     /**
@@ -79,11 +85,15 @@ class Payload
     {
         $psr17Factory = new Psr17Factory();
 
-        $uri = $baseUri->toString().$this->uri->toString();
+        $uri = $this->buildUri($baseUri);
 
         $queryParams = $queryParams->toArray();
 
         if ($this->method === Method::GET) {
+            $queryParams = [...$queryParams, ...$this->parameters];
+        }
+
+        if ($this->method === Method::POST && in_array($this->contentType, [ContentType::ALL, ContentType::TEXT])) {
             $queryParams = [...$queryParams, ...$this->parameters];
         }
 
@@ -93,7 +103,7 @@ class Payload
 
         $headers = $headers
             ->withContentType($this->contentType)
-            ->acceptContentType($this->contentType);
+            ->acceptContentType($this->acceptContentType);
 
         $body = match ($this->contentType) {
             ContentType::JSON => $this->method === Method::GET ? null : $psr17Factory->createStream(json_encode($this->parameters, JSON_THROW_ON_ERROR)),
@@ -111,5 +121,16 @@ class Payload
         }
 
         return $request;
+    }
+
+    private function buildUri(BaseUri $baseUri): string
+    {
+        $uri = $baseUri->toString().$this->uri->toString();
+
+        if (! Factory::isStaging()) {
+            return $uri;
+        }
+
+        return str_replace('prod/', 'test/', $uri);
     }
 }

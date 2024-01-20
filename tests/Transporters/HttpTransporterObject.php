@@ -48,6 +48,29 @@ test('request object', function () {
     $this->http->requestObject($payload);
 });
 
+test('request object from xml', function () {
+    $payload = Payload::upload('prod/FCTEL/rest/upload', 'dummy xml content');
+
+    $response = new Response(200, [
+        'Content-Type' => 'application/xml',
+    ], '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<header xmlns="mfp:anaf:dgti:spv:respUploadFisier:v1" dateResponse="202108051140" ExecutionStatus="0" index_incarcare="3828"/>');
+
+    $this->client
+        ->shouldReceive('sendRequest')
+        ->once()
+        ->withArgs(function (Psr7Request $request) {
+            expect($request->getMethod())->toBe('POST')
+                ->and($request->getUri())
+                ->getScheme()->toBe('https')
+                ->getPath()->toBe('/prod/FCTEL/rest/upload');
+
+            return true;
+        })->andReturn($response);
+
+    $this->http->requestObject($payload);
+});
+
 test('request object response', function () {
     $payload = Payload::create('PlatitorTvaRest/api/v8/ws/tva', []);
 

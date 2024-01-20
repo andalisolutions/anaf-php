@@ -17,6 +17,7 @@ test('resources')->expect('Anaf\Resources')->toOnlyUse([
     'Anaf\ValueObjects',
     'Anaf\Exceptions',
     'Anaf\Responses',
+    'Anaf\Enums',
 ]);
 
 test('responses')->expect('Anaf\Responses')->toOnlyUse([
@@ -25,8 +26,9 @@ test('responses')->expect('Anaf\Responses')->toOnlyUse([
 ]);
 
 test('value objects')->expect('Anaf\ValueObjects')->toOnlyUse([
-    'Anaf\Enums',
     'Anaf\Contracts',
+    'Anaf\Enums',
+    'Anaf\Factory',
     'Psr\Http\Message\RequestInterface',
     'Http\Discovery\Psr17Factory',
     'Psr\Http\Message\StreamInterface',

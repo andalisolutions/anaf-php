@@ -39,6 +39,7 @@ class HttpTransporter implements TransporterContract
      * {@inheritDoc}
      *
      * @throws TaxIdentificationNumberNotFoundException
+     * @throws JsonException
      */
     public function requestObject(Payload $payload): array
     {
@@ -54,12 +55,30 @@ class HttpTransporter implements TransporterContract
         $contents = $response->getBody()->getContents();
 
         try {
-            /** @var array{notFound?: array<int, int>} $response */
+            /** @var array<array-key, mixed> $response */
             $response = json_decode($contents, true, 512, JSON_THROW_ON_ERROR);
+
         } catch (JsonException $jsonException) {
-            throw new UnserializableResponse($jsonException);
+
+            $xml = simplexml_load_string($contents, 'SimpleXMLElement', LIBXML_NOCDATA);
+
+            if ($xml === false) {
+                throw new UnserializableResponse($jsonException);
+            }
+
+            try {
+                $jsonResponse = json_encode($xml, JSON_THROW_ON_ERROR);
+
+            } catch (JsonException $jsonException) {
+                throw new UnserializableResponse($jsonException);
+            }
+
+            /** @var array<array-key, mixed> $response */
+            $response = json_decode($jsonResponse, true, 512, JSON_THROW_ON_ERROR);
+
         }
-        if (! array_key_exists('notFound', $response)) {
+
+        if (! array_key_exists('notFound', $response) && ! array_key_exists('Errors', $response)) {
             return $response;
         }
 

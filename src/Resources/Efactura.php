@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Anaf\Resources;
 
 use Anaf\Contracts\FileContract;
+use Anaf\Enums\Efactura\UploadStandard;
 use Anaf\Responses\Efactura\CreateMessagesResponse;
+use Anaf\Responses\Efactura\CreateUploadResponse;
 use Anaf\ValueObjects\Transporter\Payload;
 use Anaf\ValueObjects\Transporter\Xml;
 use Exception;
@@ -14,6 +16,31 @@ use RuntimeException;
 class Efactura
 {
     use Concerns\Transportable;
+
+    /**
+     * Upload an eFactura XML file to ANAF.
+     *
+     * @see https://mfinante.gov.ro/static/10/eFactura/upload.html
+     *
+     * @throws Exception
+     */
+    public function upload(string $xml_path, string $tax_identification_number, UploadStandard $standard = UploadStandard::UBL, bool $extern = false): CreateUploadResponse
+    {
+        $payload = Payload::upload(
+            resource: 'prod/FCTEL/rest/upload',
+            body: Xml::from($xml_path)->toString(),
+            parameters: [
+                'cif' => $tax_identification_number,
+                'standard' => $standard->value,
+                ...($extern ? ['extern' => 'DA'] : []),
+            ],
+        );
+
+        /** @var array<array-key, array{dateResponse: string, ExecutionStatus: string, index_incarcare: string}> $response */
+        $response = $this->transporter->requestObject($payload);
+
+        return CreateUploadResponse::from($response['@attributes']);
+    }
 
     /**
      * Get the list of messages for a given taxpayer.

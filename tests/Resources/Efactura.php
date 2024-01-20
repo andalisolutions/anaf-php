@@ -2,7 +2,19 @@
 
 use Anaf\Contracts\FileContract;
 use Anaf\Responses\Efactura\CreateMessagesResponse;
+use Anaf\Responses\Efactura\CreateUploadResponse;
 use Anaf\Responses\Efactura\Message;
+
+test('upload', function () {
+    $authorizedClient = mockAuthorizedClient('POST', '/prod/FCTEL/rest/upload', getUploadMessage());
+
+    $response = $authorizedClient->efactura()->upload(
+        xml_path: __DIR__.'/../Fixtures/dummyxml.xml',
+        tax_identification_number: '8000000000',
+    );
+
+    expect($response)->toBeInstanceOf(CreateUploadResponse::class);
+});
 
 test('get messages', function () {
     $authorizedClient = mockAuthorizedClient('GET', '/prod/FCTEL/rest/listaMesajeFactura', getEfacturaMessages());

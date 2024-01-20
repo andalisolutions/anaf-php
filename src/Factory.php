@@ -23,7 +23,7 @@ class Factory
      */
     private ?string $baseUri = null;
 
-    private bool $staging = false;
+    private static bool $staging = false;
 
     /**
      * The query parameters for the requests.
@@ -58,9 +58,14 @@ class Factory
      */
     public function staging(): self
     {
-        $this->staging = true;
+        self::$staging = true;
 
         return $this;
+    }
+
+    public static function isStaging(): bool
+    {
+        return self::$staging;
     }
 
     /**
@@ -84,7 +89,7 @@ class Factory
             $headers = Headers::withAuthorization(ApiKey::from($this->apiKey));
         }
 
-        $baseUri = BaseUri::from($this->baseUri ?: 'webservicesp.anaf.ro', $this->staging);
+        $baseUri = BaseUri::from($this->baseUri ?: 'webservicesp.anaf.ro');
 
         $queryParams = QueryParams::create();
 
