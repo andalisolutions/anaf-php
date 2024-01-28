@@ -24,7 +24,7 @@ class Efactura
      *
      * @throws Exception
      */
-    public function upload(string $xml_path, string $tax_identification_number, UploadStandard $standard = UploadStandard::UBL, bool $extern = false): CreateUploadResponse
+    public function upload(string $xml_path, string $tax_identification_number, UploadStandard $standard = UploadStandard::UBL, bool $extern = false, bool $selfInvoice = false): CreateUploadResponse
     {
         $payload = Payload::upload(
             resource: 'prod/FCTEL/rest/upload',
@@ -33,6 +33,7 @@ class Efactura
                 'cif' => $tax_identification_number,
                 'standard' => $standard->value,
                 ...($extern ? ['extern' => 'DA'] : []),
+                ...($selfInvoice ? ['autofactura' => 'DA'] : []),
             ],
         );
 
