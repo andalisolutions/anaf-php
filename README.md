@@ -38,10 +38,10 @@ $authorizedClient = Anaf::authorizedClient($apiKey);
  * Build a client with a specific base URI, staging and more. Example:
  */
 $factoryClient = Anaf::factory()
-                        ->withApiKey($apiKey)
-                        ->staging()
-                        ->withBaseUri('https://webservicesp.anaf.ro')
-                        ->make();  
+    ->withApiKey($apiKey)
+    ->staging()
+    ->withBaseUri('https://webservicesp.anaf.ro')
+    ->make();  
 ```
 #### You can obtain API key using [oauth2-anaf](https://github.com/andalisolutions/oauth2-anaf) package.
 ## TODO
@@ -251,13 +251,14 @@ $upload = $authorizedClient->efactura()->upload(
     taxIdentificationNumber: '12345678',
     //standard: UploadStandard::UBL, // default value is UBL
     //extern: false, // default value is false
+    //selfInvoice: false, // default value is false
 );
 $upload->responseDate, // 202401011640
 $upload->executionStatus,
 $upload->uploadIndex,
 ```
 
-#### [Status](https://mfinante.gov.ro/static/10/eFactura/upload.html) Resource
+#### [Status](https://mfinante.gov.ro/static/10/eFactura/staremesaj.html) Resource
 TODO: implement `status` from [here](https://mfinante.gov.ro/static/10/eFactura/staremesaj.html)
 
 #### [Messages](https://mfinante.gov.ro/static/10/eFactura/listamesaje.html) Resource
