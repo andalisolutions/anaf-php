@@ -18,6 +18,7 @@ test('resources')->expect('Anaf\Resources')->toOnlyUse([
     'Anaf\Exceptions',
     'Anaf\Responses',
     'Anaf\Enums',
+    'Anaf\Requests',
 ]);
 
 test('responses')->expect('Anaf\Responses')->toOnlyUse([
