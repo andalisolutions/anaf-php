@@ -7,6 +7,7 @@ namespace Anaf\Resources;
 use Anaf\Contracts\FileContract;
 use Anaf\Enums\Efactura\UploadStandard;
 use Anaf\Responses\Efactura\CreateMessagesResponse;
+use Anaf\Responses\Efactura\CreatePaginatedMessagesResponse;
 use Anaf\Responses\Efactura\CreateUploadResponse;
 use Anaf\ValueObjects\Transporter\Payload;
 use Anaf\ValueObjects\Transporter\Xml;
@@ -64,6 +65,29 @@ class Efactura
         }
 
         return CreateMessagesResponse::from($response);
+    }
+
+    /**
+     * Get the list of messages for a given taxpayer.
+     *
+     * @see https://mfinante.gov.ro/static/10/eFactura/listamesaje.html#/EFacturaListaMesaje/getPaginatie
+     *
+     * @param  array<string, string>  $parameters
+     */
+    public function paginatedMessages(array $parameters): CreatePaginatedMessagesResponse
+    {
+        $payload = Payload::get('prod/FCTEL/rest/listaMesajePaginatieFactura', $parameters);
+
+        /**
+         * @var array{eroare?: string, mesaje: array<int, array{data_creare: string, cif: string, id_solicitare: string, detalii: string, tip: string, id: string}>, numar_inregistrari_in_pagina: int, numar_total_inregistrari_per_pagina: int, numar_total_inregistrari: int, numar_total_pagini: int, index_pagina_curenta:int, serial: string, cui: string, titlu: string} $response
+         */
+        $response = $this->transporter->requestObject($payload);
+
+        if (array_key_exists('eroare', $response)) {
+            throw new RuntimeException($response['eroare']);
+        }
+
+        return CreatePaginatedMessagesResponse::from($response);
     }
 
     /**

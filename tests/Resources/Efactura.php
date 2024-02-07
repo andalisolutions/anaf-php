@@ -2,6 +2,7 @@
 
 use Anaf\Contracts\FileContract;
 use Anaf\Responses\Efactura\CreateMessagesResponse;
+use Anaf\Responses\Efactura\CreatePaginatedMessagesResponse;
 use Anaf\Responses\Efactura\CreateUploadResponse;
 use Anaf\Responses\Efactura\Message;
 
@@ -33,6 +34,34 @@ test('get messages', function () {
         ->toBe('1234AA456')
         ->and($response->taxIdentificationNumbers)
         ->toBe('8000000000')
+        ->and($response->messages)
+        ->toBeArray()
+        ->and($response->messages[0])
+        ->toBeInstanceOf(Message::class);
+
+});
+
+test('get paginated messages', function () {
+    $authorizedClient = mockAuthorizedClient('GET', '/prod/FCTEL/rest/listaMesajePaginatieFactura', getEfacturaPaginatedMessages());
+
+    $response = $authorizedClient->efactura()->paginatedMessages(
+        [
+            'startTime' => 1706738400000,
+            'endTime' => 1707343800000,
+            'cif' => 8000000000,
+            'pagina' => 2,
+        ],
+    );
+
+    expect($response)
+        ->toBeInstanceOf(CreatePaginatedMessagesResponse::class)
+        ->toHaveProperty('messages')
+        ->and($response->serial)
+        ->toBe('1234AA456')
+        ->and($response->taxIdentificationNumbers)
+        ->toBe('8000000000')
+        ->and($response->currentPage)
+        ->toBe(29)
         ->and($response->messages)
         ->toBeArray()
         ->and($response->messages[0])
