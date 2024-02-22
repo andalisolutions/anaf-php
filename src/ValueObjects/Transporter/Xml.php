@@ -52,7 +52,7 @@ class Xml implements StringableContract
         }
 
         // Regex pattern to match the xsi:schemaLocation attribute regardless of its content
-        $pattern = '/\sxsi:schemaLocation="[^"]*"/';
+        $pattern = '/\sxsi:(schemaLocation|schemalocation)="[^"]*"/';
 
         // Replace the matched pattern with an empty string
         return (string) preg_replace($pattern, '', $xml_content);
