@@ -51,10 +51,20 @@ class Xml implements StringableContract
             throw new RuntimeException("Could not read file {$xml_path}");
         }
 
+        $xml_content = $this->replaceCData($xml_content);
+
         // Regex pattern to match the xsi:schemaLocation attribute regardless of its content
         $pattern = '/\sxsi:(schemaLocation|schemalocation)="[^"]*"/';
 
         // Replace the matched pattern with an empty string
         return (string) preg_replace($pattern, '', $xml_content);
+    }
+
+    private function replaceCData(string $xml_content): string
+    {
+        $pattern = '/<!\[CDATA\[(.*?)]]>/s';
+
+        // Replace the whole CDATA section with just the content inside it
+        return (string) preg_replace($pattern, '$1', $xml_content);
     }
 }
