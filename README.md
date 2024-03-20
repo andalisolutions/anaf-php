@@ -246,13 +246,15 @@ Upload an XML (eFactura) file to the SPV
 TODO: improve error handling
 
 ```php
-$upload = $authorizedClient->efactura()->upload(
-    xml_path: $pathToXmlFile,
-    taxIdentificationNumber: '12345678',
-    //standard: UploadStandard::UBL, // default value is UBL
-    //extern: false, // default value is false
-    //selfInvoice: false, // default value is false
-);
+use Anaf\Requests\Efactura\UploadRequest;
+use Anaf\Enums\Efactura\UploadStandard;
+
+$uploadRequest = UploadRequest::withXmlPath($pathToXmlFile)
+    ->withTaxIdentificationNumber('12345678')
+    ->withStandard(UploadStandard::UBL); 
+    //->extern() // for external invoices
+    //->selfInvoice(); // for self invoices
+$upload = $authorizedClient->efactura()->upload($uploadRequest);
 $upload->responseDate, // 202401011640
 $upload->executionStatus,
 $upload->uploadIndex,
@@ -265,10 +267,14 @@ TODO: implement `status` from [here](https://mfinante.gov.ro/static/10/eFactura/
 TODO: implement `paginated messages` from [here](https://mfinante.gov.ro/static/10/eFactura/listamesaje.html#/EFacturaListaMesaje/getPaginatie)
 Get the list of available messages
 ```php
-$spvMessages = $authorizedClient->efactura()->messages([
-    'zile' => 30, // between 1 and 60
-    'cif' => '12345678',
-]);
+
+use Anaf\Enums\Efactura\MessagesFilter;
+use Anaf\Requests\Efactura\MessagesRequest;
+
+$messagesRequest = MessagesRequest::withTaxIdetificationNumber('12345678')
+    ->withDays(30);
+    //->withFilter(MessagesFilter::RECEIVED); // received messages
+$spvMessages = $authorizedClient->efactura()->messages($messagesRequest);
 
 $spvMessages->messages; // array
 $spvMessages->serial;
@@ -287,9 +293,7 @@ $message->id,
 #### [Download - eFactura XML](https://mfinante.gov.ro/static/10/eFactura/descarcare.html) Resource
 Get a file from the SPV identified by the `id` received from the messages endpoint
 ```php
-$file = $authorizedClient->efactura()->download([
-    'id' => '12345678',
-]);
+$file = $authorizedClient->efactura()->download(12345678);
 
 $file->getContent(); // string - You can save/download the content to a file
 ```
@@ -299,14 +303,17 @@ TODO: implement `validate` from [here](https://mfinante.gov.ro/static/10/eFactur
 #### [XmlToPdf](https://mfinante.gov.ro/static/10/eFactura/xmltopdf.html) Resource
 Convert XML eFactura to PDF. For this endpoint you need to use unauthenticated client
 ```php
-/*
- * $xmlStandard can be one of the following: 'FACT1', 'FCN'. 
- * The default value is 'FACT1'
- */
-$file = $client->efactura()->xmlToPdf($pathToXmlFile, $xmlStandard);
+
+use Anaf\Enums\Efactura\ConvertXmlStandard;
+use Anaf\Requests\Efactura\XmlToPdfRequest;
+
+$xmlToPdfRequest = XmlToPdfRequest::withXmlPath($pathToXmlFile)
+    ->withStandard(ConvertXmlStandard::UBL);
+    //->withoutValidation();
+    
+$file = $client->efactura()->xmlToPdf($xmlToPdfRequest);
 $file->getContent(); // string - You can save the pdf content to a file
 ```
-
 ---
 
 ANAF PHP is an open-sourced software licensed under the **[MIT license](https://opensource.org/licenses/MIT)**.
