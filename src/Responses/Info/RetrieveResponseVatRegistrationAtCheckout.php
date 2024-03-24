@@ -33,7 +33,7 @@ class RetrieveResponseVatRegistrationAtCheckout
     }
 
     /**
-     * @return array{start_date: string, stop_date: string, update_date: string, publish_date: string, updated_type: string}
+     * @return array{start_date: string, stop_date: string, update_date: string, publish_date: string, updated_type: string, status: bool}
      */
     public function toArray(): array
     {
@@ -43,6 +43,7 @@ class RetrieveResponseVatRegistrationAtCheckout
             'update_date' => $this->updateDate,
             'publish_date' => $this->publishDate,
             'updated_type' => $this->updatedType,
+            'status' => $this->status,
         ];
     }
 }
