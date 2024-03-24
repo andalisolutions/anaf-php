@@ -43,6 +43,7 @@ function getCompanyInfo(): array
             'update_date' => '',
             'publish_date' => '',
             'updated_type' => '',
+            'status' => false,
         ],
         'inactive_state' => [
             'inactivation_date' => '',
