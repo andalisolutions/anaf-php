@@ -29,8 +29,8 @@ class Info
      */
     public function create(array $parameters): CreateResponse|CreateResponses
     {
-        if (count($parameters) > 500) {
-            throw new InvalidArgumentException('Maximum 500 companies allowed');
+        if (count($parameters) > 100) {
+            throw new InvalidArgumentException('Maximum 100 companies allowed');
         }
 
         $payload = Payload::create('PlatitorTvaRest/api/v8/ws/tva', $parameters);
