@@ -78,13 +78,13 @@ class HttpTransporter implements TransporterContract
 
         }
 
-        if (! array_key_exists('notFound', $response) && ! array_key_exists('Errors', $response)) {
-            return $response;
-        }
+        // if (! array_key_exists('notFound', $response) && ! array_key_exists('Errors', $response)) {
+        //     return $response;
+        // }
 
-        if ($response['notFound'] !== []) {
-            throw new TaxIdentificationNumberNotFoundException();
-        }
+        // if ($response['notFound'] !== []) {
+        //     throw new TaxIdentificationNumberNotFoundException();
+        // }
 
         return $response;
     }
