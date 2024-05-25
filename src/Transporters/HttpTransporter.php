@@ -6,7 +6,6 @@ namespace Anaf\Transporters;
 
 use Anaf\Contracts\TransporterContract;
 use Anaf\Exceptions\FileTypeException;
-use Anaf\Exceptions\TaxIdentificationNumberNotFoundException;
 use Anaf\Exceptions\TransporterException;
 use Anaf\Exceptions\UnserializableResponse;
 use Anaf\ValueObjects\Transporter\BaseUri;
@@ -38,7 +37,6 @@ class HttpTransporter implements TransporterContract
     /**
      * {@inheritDoc}
      *
-     * @throws TaxIdentificationNumberNotFoundException
      * @throws JsonException
      */
     public function requestObject(Payload $payload): array
@@ -76,14 +74,6 @@ class HttpTransporter implements TransporterContract
             /** @var array<array-key, mixed> $response */
             $response = json_decode($jsonResponse, true, 512, JSON_THROW_ON_ERROR);
 
-        }
-
-        if (! array_key_exists('notFound', $response) && ! array_key_exists('Errors', $response)) {
-            return $response;
-        }
-
-        if ($response['notFound'] !== []) {
-            throw new TaxIdentificationNumberNotFoundException();
         }
 
         return $response;
