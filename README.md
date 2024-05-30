@@ -9,7 +9,7 @@
 </p>
 
 ------
-**ANAF PHP** is a charged PHP API client that allows you to interact with the [ANAF Web Services](https://www.anaf.ro/anaf/internet/ANAF/servicii_online/servicii_web_anaf).
+**ANAF PHP** is a PHP API client that allows you to interact with the [ANAF Web Services](https://www.anaf.ro/anaf/internet/ANAF/servicii_online/servicii_web_anaf).
 
 ## Get Started
 
