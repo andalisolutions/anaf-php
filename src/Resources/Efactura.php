@@ -41,6 +41,10 @@ class Efactura
         /** @var array<array-key, array{dateResponse: string, ExecutionStatus: string, index_incarcare: string}> $response */
         $response = $this->transporter->requestObject($payload);
 
+        if (! array_key_exists('@attributes', $response)) {
+            throw new RuntimeException($response['message']);
+        }
+
         return CreateUploadResponse::from($response['@attributes']);
     }
 
