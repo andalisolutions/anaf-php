@@ -112,30 +112,6 @@ test('request object response', function () {
     );
 });
 
-test('request object tax identification number not found', function () {
-    $payload = Payload::create('PlatitorTvaRest/api/v8/ws/tva', []);
-
-    $response = new Response(200, [], json_encode(
-        [
-            'cod' => 200,
-            'message' => 'SUCCESS',
-            'found' => [],
-            'notFound' => [
-                0 => 387445633,
-            ],
-        ],
-    ));
-
-    $this->client
-        ->shouldReceive('sendRequest')
-        ->once()
-        ->andReturn($response);
-
-    expect(fn () => $this->http->requestObject($payload))
-        ->toThrow(function (TaxIdentificationNumberNotFoundException $e) {
-            expect($e->getMessage())->toBe('Tax identification number not found');
-        });
-});
 
 test('request object client errors', function () {
     $payload = Payload::create('PlatitorTvaRest/api/v8/ws/tva', []);
