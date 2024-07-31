@@ -1,7 +1,6 @@
 <?php
 
 use Anaf\Enums\Transporter\ContentType;
-use Anaf\Exceptions\TaxIdentificationNumberNotFoundException;
 use Anaf\Exceptions\TransporterException;
 use Anaf\Exceptions\UnserializableResponse;
 use Anaf\Transporters\HttpTransporter;
@@ -111,7 +110,6 @@ test('request object response', function () {
         ]
     );
 });
-
 
 test('request object client errors', function () {
     $payload = Payload::create('PlatitorTvaRest/api/v8/ws/tva', []);

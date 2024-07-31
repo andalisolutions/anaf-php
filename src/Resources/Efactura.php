@@ -42,6 +42,7 @@ class Efactura
         $response = $this->transporter->requestObject($payload);
 
         if (! array_key_exists('@attributes', $response)) {
+            /** @var array{message: string} $response */
             throw new RuntimeException($response['message']);
         }
 
