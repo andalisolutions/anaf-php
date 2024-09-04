@@ -84,3 +84,14 @@ function getFakeFile(string $content = 'dummy zile file content')
 {
     return new FileHandler($content);
 }
+
+/**
+ * @return array<string, string>
+ */
+function getXmlSignatureValidationMessages(): array
+{
+    return [
+        'msg' => 'Fișierele încărcate NU au putut fi validate cu succes, din perspectiva autenticității semnăturii aplicate și a apartenenței acesteia la XML-ul ce reprezintă factura electronică. Documentul factură de tip XML cu semnătura de validare atașată, NU poate fi considerat document original din perspectiva legislativă și NU este generat prin intermediul sistemului național RO e-Factura.',
+    ];
+
+}

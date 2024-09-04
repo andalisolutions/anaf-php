@@ -3,6 +3,7 @@
 use Anaf\Contracts\FileContract;
 use Anaf\Responses\Efactura\CreateMessagesResponse;
 use Anaf\Responses\Efactura\CreatePaginatedMessagesResponse;
+use Anaf\Responses\Efactura\CreateSignatureValidationResponse;
 use Anaf\Responses\Efactura\CreateUploadResponse;
 use Anaf\Responses\Efactura\Message;
 
@@ -89,4 +90,15 @@ test('xml to pdf', function () {
     $response = $authorizedClient->efactura()->xmlToPdf(__DIR__.'/../Fixtures/dummyxml.xml', validate: false);
 
     expect($response)->toBeInstanceOf(FileContract::class);
+});
+
+test('xml signature validation', function () {
+    $authorizedClient = mockAuthorizedClient('POST', '/api/validate/signature', getXmlSignatureValidationMessages());
+
+    $response = $authorizedClient->efactura()->xmlSignatureValidation(
+        xml_path: __DIR__.'/../Fixtures/dummyxml.xml',
+        signature_path: __DIR__.'/../Fixtures/dummyxml.xml',
+    );
+
+    expect($response)->toBeInstanceOf(CreateSignatureValidationResponse::class);
 });

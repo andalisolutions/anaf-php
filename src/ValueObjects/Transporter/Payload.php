@@ -8,6 +8,7 @@ use Anaf\Enums\Transporter\ContentType;
 use Anaf\Enums\Transporter\Method;
 use Anaf\Factory;
 use Anaf\ValueObjects\ResourceUri;
+use GuzzleHttp\Psr7\MultipartStream;
 use Http\Discovery\Psr17Factory;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\StreamInterface;
@@ -29,6 +30,7 @@ class Payload
         private readonly ResourceUri $uri,
         private readonly array $parameters = [],
         private readonly ?string $body = null,
+        private readonly ?string $signature = null,
     ) {
         // ..
     }
@@ -61,6 +63,26 @@ class Payload
         $acceptContentType = ContentType::ALL;
 
         return new self($contentType, $acceptContentType, $method, $uri, $parameters, $body);
+    }
+
+    /**
+     * Creates a new Payload value object from the given parameters.
+     */
+    public static function uploadSignatureValidation(string $resource, string $body, string $signature): self
+    {
+        $method = Method::POST;
+        $uri = ResourceUri::create($resource);
+        $contentType = ContentType::TEXT;
+        $acceptContentType = ContentType::ALL;
+
+        return new self(
+            contentType: $contentType,
+            acceptContentType: $acceptContentType,
+            method: $method,
+            uri: $uri,
+            body: $body,
+            signature: $signature
+        );
     }
 
     /**
@@ -108,6 +130,10 @@ class Payload
         $body = match ($this->contentType) {
             ContentType::JSON => $this->method === Method::GET ? null : $psr17Factory->createStream(json_encode($this->parameters, JSON_THROW_ON_ERROR)),
             ContentType::TEXT, ContentType::ALL => $psr17Factory->createStream((string) $this->body),
+            ContentType::MULTIPART => new MultipartStream([
+                'file' => $this->body,
+                'signature' => $this->signature,
+            ]),
         };
 
         $request = $psr17Factory->createRequest($this->method->value, $uri);
