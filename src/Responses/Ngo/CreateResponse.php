@@ -30,8 +30,7 @@ class CreateResponse implements Response
         public readonly string $endDate,
         public readonly bool $status,
 
-    ) {
-    }
+    ) {}
 
     /**
      * Acts as static factory, and returns a new Response instance.

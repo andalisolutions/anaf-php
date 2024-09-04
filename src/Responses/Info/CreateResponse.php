@@ -25,8 +25,7 @@ class CreateResponse implements Response
         public readonly RetrieveResponseSplitVatRegistration $splitVat,
         public readonly RetrieveResponseHqAddress $hqAddress,
         public readonly RetrieveResponseFiscalAddress $fiscalAddress,
-    ) {
-    }
+    ) {}
 
     /**
      * Acts as static factory, and returns a new Response instance.
