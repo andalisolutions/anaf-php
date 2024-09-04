@@ -24,8 +24,7 @@ class CreateUploadResponse implements Response
         public readonly string $responseDate,
         public readonly string $executionStatus,
         public readonly string $uploadIndex,
-    ) {
-    }
+    ) {}
 
     /**
      * Acts as static factory, and returns a new Response instance.

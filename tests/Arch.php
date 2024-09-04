@@ -32,6 +32,7 @@ test('value objects')->expect('Anaf\ValueObjects')->toOnlyUse([
     'Psr\Http\Message\RequestInterface',
     'Http\Discovery\Psr17Factory',
     'Psr\Http\Message\StreamInterface',
+    'GuzzleHttp\Psr7\MultipartStream',
 ]);
 
 test('client')->expect('Anaf\Client')->toOnlyUse([

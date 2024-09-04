@@ -32,8 +32,7 @@ class CreatePaginatedMessagesResponse implements Response
         public readonly int $totalMessages,
         public readonly int $totalPages,
         public readonly int $currentPage,
-    ) {
-    }
+    ) {}
 
     /**
      * Acts as static factory, and returns a new Response instance.

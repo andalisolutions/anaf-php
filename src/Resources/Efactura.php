@@ -8,6 +8,7 @@ use Anaf\Contracts\FileContract;
 use Anaf\Enums\Efactura\UploadStandard;
 use Anaf\Responses\Efactura\CreateMessagesResponse;
 use Anaf\Responses\Efactura\CreatePaginatedMessagesResponse;
+use Anaf\Responses\Efactura\CreateSignatureValidationResponse;
 use Anaf\Responses\Efactura\CreateUploadResponse;
 use Anaf\ValueObjects\Transporter\Payload;
 use Anaf\ValueObjects\Transporter\Xml;
@@ -25,8 +26,14 @@ class Efactura
      *
      * @throws Exception
      */
-    public function upload(string $xml_path, string $tax_identification_number, UploadStandard $standard = UploadStandard::UBL, bool $extern = false, bool $selfInvoice = false): CreateUploadResponse
-    {
+    public function upload(
+        string $xml_path,
+        string $tax_identification_number,
+        UploadStandard $standard = UploadStandard::UBL,
+        bool $extern = false,
+        bool $selfInvoice = false,
+        bool $execution = false,
+    ): CreateUploadResponse {
         $payload = Payload::upload(
             resource: 'prod/FCTEL/rest/upload',
             body: Xml::from($xml_path)->toString(),
@@ -35,6 +42,7 @@ class Efactura
                 'standard' => $standard->value,
                 ...($extern ? ['extern' => 'DA'] : []),
                 ...($selfInvoice ? ['autofactura' => 'DA'] : []),
+                ...($execution ? ['executare' => 'DA'] : []),
             ],
         );
 
@@ -130,5 +138,28 @@ class Efactura
         );
 
         return $this->transporter->requestFile($payload);
+    }
+
+    /**
+     * Validate the signature of an eFactura XML file.
+     *
+     * @see https://mfinante.gov.ro/static/10/eFactura/validaresemnatura.html
+     *
+     * @throws Exception
+     */
+    public function xmlSignatureValidation(string $xml_path, string $signature_path): CreateSignatureValidationResponse
+    {
+        $payload = Payload::uploadSignatureValidation(
+            resource: 'api/validate/signature',
+            body: Xml::from($xml_path)->toString(),
+            signature: Xml::from($signature_path)->toString(),
+        );
+
+        /**
+         * @var array{msg: string} $response
+         */
+        $response = $this->transporter->requestObject($payload);
+
+        return CreateSignatureValidationResponse::from($response);
     }
 }

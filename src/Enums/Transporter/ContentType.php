@@ -12,4 +12,5 @@ enum ContentType: string
     case JSON = 'application/json';
     case ALL = '*/*';
     case TEXT = 'text/plain';
+    case MULTIPART = 'multipart/form-data';
 }

@@ -11,8 +11,7 @@ class RetrieveResponseSplitVatRegistration
         public readonly string $stopDate,
         public readonly bool $status,
 
-    ) {
-    }
+    ) {}
 
     /**
      * @param  array{dataInceputSplitTVA: string, dataAnulareSplitTVA: string, statusSplitTVA: bool}  $attributes

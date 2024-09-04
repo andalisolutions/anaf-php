@@ -27,8 +27,7 @@ class CreateMessagesResponse implements Response
         public readonly string $serial,
         public readonly string $taxIdentificationNumbers,
         public readonly string $title,
-    ) {
-    }
+    ) {}
 
     /**
      * Acts as static factory, and returns a new Response instance.

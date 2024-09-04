@@ -17,8 +17,7 @@ class RetrieveResponseHqAddress
         public readonly string $country,
         public readonly string $details,
         public readonly string $postalCode,
-    ) {
-    }
+    ) {}
 
     /**
      * @param  array{sdenumire_Strada: string, snumar_Strada: string, sdenumire_Localitate: string, scod_Localitate: string, sdenumire_Judet: string, scod_Judet: string, scod_JudetAuto: string, stara: string, sdetalii_Adresa: string, scod_Postal: string}  $attributes

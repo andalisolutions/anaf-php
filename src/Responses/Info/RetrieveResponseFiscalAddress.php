@@ -17,8 +17,7 @@ class RetrieveResponseFiscalAddress
         public readonly string $country,
         public readonly string $details,
         public readonly string $postalCode,
-    ) {
-    }
+    ) {}
 
     /**
      * @param  array{ddenumire_Strada: string, dnumar_Strada: string, ddenumire_Localitate: string, dcod_Localitate: string, ddenumire_Judet: string, dcod_Judet: string, dcod_JudetAuto: string, dtara: string, ddetalii_Adresa: string, dcod_Postal: string}  $attributes

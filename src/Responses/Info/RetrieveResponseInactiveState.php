@@ -13,8 +13,7 @@ class RetrieveResponseInactiveState
         public readonly string $deletionDate,
         public readonly bool $status,
 
-    ) {
-    }
+    ) {}
 
     /**
      * @param  array{dataInactivare: string, dataReactivare: string, dataPublicare: string, dataRadiere: string, statusInactivi: bool}  $attributes
