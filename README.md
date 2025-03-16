@@ -251,7 +251,8 @@ $upload = $authorizedClient->efactura()->upload(
     taxIdentificationNumber: '12345678',
     //standard: UploadStandard::UBL, // default value is UBL
     //extern: false, // default value is false
-    //selfInvoice: false, // default value is false
+    //selfInvoice: false, // default value is false,
+    //b2c: false, // default value is false
 );
 $upload->responseDate, // 202401011640
 $upload->executionStatus,
