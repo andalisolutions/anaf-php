@@ -18,7 +18,7 @@ class RetrieveResponseGeneralData
         public readonly string $document,
         public readonly string $registrationStatus,
         public readonly string $registrationDate,
-        public readonly string $activityCode,
+        public readonly ?string $activityCode,
         public readonly string $bankAccount,
         public readonly bool $roInvoiceStatus,
         public readonly string $authorityName,
