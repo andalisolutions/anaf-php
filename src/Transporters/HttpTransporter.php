@@ -91,7 +91,7 @@ class HttpTransporter implements TransporterContract
         }
 
         if (! in_array($response->getHeaderLine('Content-Type'), ['application/zip', 'application/pdf'])) {
-            throw new FileTypeException();
+            throw new FileTypeException;
         }
 
         $fileContent = $response->getBody()->getContents();

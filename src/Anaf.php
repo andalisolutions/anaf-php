@@ -33,6 +33,6 @@ class Anaf
      */
     public static function factory(): Factory
     {
-        return new Factory();
+        return new Factory;
     }
 }

@@ -25,8 +25,7 @@ class RetrieveResponseGeneralData
         public readonly string $formOfOwnership,
         public readonly string $organizationalForm,
         public readonly string $legalForm,
-    ) {
-    }
+    ) {}
 
     /**
      * Acts as static factory, and returns a new Response instance.

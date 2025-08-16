@@ -10,8 +10,7 @@ class RetrieveResponseIndicators
         public readonly string $indicator,
         public readonly int $value,
         public readonly string $indicatorName,
-    ) {
-    }
+    ) {}
 
     /**
      * @param  array{indicator: string, val_indicator: int, val_den_indicator: string}  $attributes

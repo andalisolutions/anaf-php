@@ -11,8 +11,7 @@ class CreateResponses
      */
     private function __construct(
         public readonly array $responses,
-    ) {
-    }
+    ) {}
 
     /**
      * Acts as static factory, and returns a new Response instance.

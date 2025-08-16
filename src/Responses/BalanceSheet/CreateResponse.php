@@ -31,8 +31,7 @@ class CreateResponse implements Response
         public readonly string $activityName,
         public readonly array $indicators,
 
-    ) {
-    }
+    ) {}
 
     /**
      * Acts as static factory, and returns a new Response instance.
