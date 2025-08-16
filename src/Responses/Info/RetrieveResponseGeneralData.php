@@ -57,7 +57,7 @@ class RetrieveResponseGeneralData
     }
 
     /**
-     * @return array{tax_identification_number: int, search_date: string, company_name: string, address: string, registration_number: string, phone: string, fax: string, postal_code: string, document: string, registration_status: string, registration_date: string, activity_code: string, bank_account: string, ro_invoice_status: bool, authority_name: string, form_of_ownership: string, organizational_form: string, legal_form: string}
+     * @return array{tax_identification_number: int, search_date: string, company_name: string, address: string, registration_number: string, phone: string, fax: string, postal_code: string, document: string, registration_status: string, registration_date: string, activity_code: null|string, bank_account: string, ro_invoice_status: bool, authority_name: string, form_of_ownership: string, organizational_form: string, legal_form: string}
      */
     public function toArray(): array
     {
