@@ -95,7 +95,7 @@ test('xml to pdf', function () {
 test('validate valid xml', function () {
     $authorizedClient = mockClient('POST', '/prod/FCTEL/rest/validare/FACT1', getXmlValidationMessage());
 
-    $response = $authorizedClient->efactura()->validateXml(__DIR__ . '/../Fixtures/dummyxml.xml');
+    $response = $authorizedClient->efactura()->validateXml(__DIR__.'/../Fixtures/dummyxml.xml');
 
     expect($response)->toBeInstanceOf(ValidationResponse::class)
         ->toArray()
@@ -105,11 +105,10 @@ test('validate valid xml', function () {
         ->toBeTrue();
 });
 
-
 test('validate invalid xml', function () {
     $authorizedClient = mockClient('POST', '/prod/FCTEL/rest/validare/FACT1', getXmlValidationMessage(false));
 
-    $response = $authorizedClient->efactura()->validateXml(__DIR__ . '/../Fixtures/dummyxml.xml');
+    $response = $authorizedClient->efactura()->validateXml(__DIR__.'/../Fixtures/dummyxml.xml');
 
     expect($response)->toBeInstanceOf(ValidationResponse::class)
         ->toArray()

@@ -142,7 +142,7 @@ class Efactura
      */
     public function validateXml(string $xml_path, string $standard = 'FACT1'): ValidationResponse
     {
-        if (!in_array($standard, ['FACT1', 'FCN'])) {
+        if (! in_array($standard, ['FACT1', 'FCN'])) {
             throw new RuntimeException("Invalid standard {$standard}");
         }
 
