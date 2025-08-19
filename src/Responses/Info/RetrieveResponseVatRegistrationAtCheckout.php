@@ -13,8 +13,7 @@ class RetrieveResponseVatRegistrationAtCheckout
         public readonly string $publishDate,
         public readonly string $updatedType,
         public readonly bool $status,
-    ) {
-    }
+    ) {}
 
     /**
      * @param array{dataInceputTvaInc: string, dataSfarsitTvaInc: string, dataActualizareTvaInc: string,

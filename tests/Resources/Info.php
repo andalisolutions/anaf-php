@@ -4,7 +4,7 @@ use Anaf\Responses\Info\CreateResponse;
 use Anaf\Responses\Info\CreateResponses;
 
 test('create', function () {
-    $client = mockClient('POST', '/PlatitorTvaRest/api/v8/ws/tva', getCompanyAnafInfo());
+    $client = mockClient('POST', '/api/PlatitorTvaRest/v9/tva', getCompanyAnafInfo());
 
     $result = $client->info()->create([
         [
@@ -14,14 +14,14 @@ test('create', function () {
     ]);
 
     expect($result)
-        ->toBeInstanceOf(CreateResponse::class);
-
-    expect($result->generalData->companyName)
+        ->toBeInstanceOf(CreateResponse::class)
+        ->and($result->generalData->companyName)
         ->toBe('ANDALI SOLUTIONS PRO S.R.L.');
+
 });
 
 test('create for multiple companies', function () {
-    $client = mockClient('POST', '/PlatitorTvaRest/api/v8/ws/tva', getMultipleCompanyAnafInfo());
+    $client = mockClient('POST', '/api/PlatitorTvaRest/v9/tva', getMultipleCompanyAnafInfo());
 
     $results = $client->info()->create([
         [

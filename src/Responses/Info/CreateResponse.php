@@ -8,7 +8,7 @@ use Anaf\Contracts\Response;
 use Anaf\Responses\Concerns\ArrayAccessible;
 
 /**
- * @implements Response<array{general_data: array{tax_identification_number: int, search_date: string, company_name: string, address: string, registration_number: string, phone: string, fax: string, postal_code: string, document: string, registration_status: string, registration_date: string, activity_code: string, bank_account: string, ro_invoice_status: bool, authority_name: string, form_of_ownership: string, organizational_form: string, legal_form: string}, vat_registration: array{status: bool, vat_periods: array<int, array{start_date: ?string, stop_date: ?string, stop_effective_date: ?string, message: ?string}>}, vat_at_checkout: array{start_date: string, stop_date: string, update_date: string, publish_date: string, updated_type: string}, inactive_state: array{inactivation_date: string, reactivation_date: string, publish_date: string, deletion_date: string, status: bool}, split_vat: array{start_date: string, stop_date: string, status: bool}, hq_address: array{street: string, no: string, city: string, city_code: string, county: string, county_code: string, county_short: string, country: string, details: string, postalCode: string}, fiscal_address: array{street: string, no: string, city: string, city_code: string, county: string, county_code: string, county_short: string, country: string, details: string, postalCode: string}}>
+ * @implements Response<array{general_data: array{tax_identification_number: int, search_date: string, company_name: string, address: string, registration_number: string, phone: string, fax: string, postal_code: string, document: string, registration_status: string, registration_date: string, activity_code: null|string, bank_account: string, ro_invoice_status: bool, authority_name: string, form_of_ownership: string, organizational_form: string, legal_form: string}, vat_registration: array{status: bool, vat_periods: array<int, array{start_date: ?string, stop_date: ?string, stop_effective_date: ?string, message: ?string}>}, vat_at_checkout: array{start_date: string, stop_date: string, update_date: string, publish_date: string, updated_type: string}, inactive_state: array{inactivation_date: string, reactivation_date: string, publish_date: string, deletion_date: string, status: bool}, split_vat: array{start_date: string, stop_date: string, status: bool}, hq_address: array{street: string, no: string, city: string, city_code: string, county: string, county_code: string, county_short: string, country: string, details: string, postalCode: string}, fiscal_address: array{street: string, no: string, city: string, city_code: string, county: string, county_code: string, county_short: string, country: string, details: string, postalCode: string}}>
  */
 class CreateResponse implements Response
 {
@@ -25,8 +25,7 @@ class CreateResponse implements Response
         public readonly RetrieveResponseSplitVatRegistration $splitVat,
         public readonly RetrieveResponseHqAddress $hqAddress,
         public readonly RetrieveResponseFiscalAddress $fiscalAddress,
-    ) {
-    }
+    ) {}
 
     /**
      * Acts as static factory, and returns a new Response instance.

@@ -13,8 +13,7 @@ class Message
         public readonly string $details,
         public readonly string $type,
         public readonly string $id,
-    ) {
-    }
+    ) {}
 
     /**
      * @param  array{data_creare: string, cif: string, id_solicitare: string, detalii: string, tip: string, id: string}  $attributes
