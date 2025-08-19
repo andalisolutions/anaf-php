@@ -18,20 +18,18 @@ class ValidationResponse implements Response
     /**
      * Creates a new ValidationResponse instance.
      *
-     * @param string $status
-     * @param string $traceId
-     * @param list<array{message: string}> $messages
+     * @param  list<array{message: string}>  $messages
      */
     public function __construct(
         public readonly string $status,
         public readonly string $traceId,
-        public readonly array  $messages,
-    ){}
+        public readonly array $messages,
+    ) {}
 
     /**
      * Acts as static factory, and returns a new Response instance.
      *
-     * @param array{stare: string, trace_id: string, Messages: null|list<array{message: string}>} $attributes
+     * @param  array{stare: string, trace_id: string, Messages: null|list<array{message: string}>}  $attributes
      */
     public static function from(array $attributes): self
     {
@@ -48,7 +46,7 @@ class ValidationResponse implements Response
     public function toArray(): array
     {
         return [
-            'stare'   => $this->status,
+            'stare' => $this->status,
             'trace_id' => $this->traceId,
             'messages' => $this->messages,
         ];
@@ -56,8 +54,6 @@ class ValidationResponse implements Response
 
     /**
      * Returns a bool to quick check if the xml was valid or not
-     *
-     * @return bool
      */
     public function isValid(): bool
     {

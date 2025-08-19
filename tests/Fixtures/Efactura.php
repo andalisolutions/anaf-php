@@ -87,18 +87,19 @@ function getFakeFile(string $content = 'dummy zile file content')
 
 function getXmlValidationMessage($valid = true): array
 {
-    if ($valid)
+    if ($valid) {
         return [
-            'stare'    => 'ok',
+            'stare' => 'ok',
             'trace_id' => '.....',
         ];
+    }
 
     return [
-        'stare'    => 'nok',
+        'stare' => 'nok',
         'Messages' => [
             [
-                'message' => "Fisierul transmis nu este valid. org.xml.sax.SAXParseException; lineNumber: 14; columnNumber: 27; cvc-complex-type.2.4.a:",
-            ]
+                'message' => 'Fisierul transmis nu este valid. org.xml.sax.SAXParseException; lineNumber: 14; columnNumber: 27; cvc-complex-type.2.4.a:',
+            ],
         ],
         'trace_id' => '.....',
     ];
