@@ -5,6 +5,7 @@ use Anaf\Responses\Efactura\CreateMessagesResponse;
 use Anaf\Responses\Efactura\CreatePaginatedMessagesResponse;
 use Anaf\Responses\Efactura\CreateUploadResponse;
 use Anaf\Responses\Efactura\Message;
+use Anaf\Responses\Efactura\ValidationResponse;
 
 test('upload', function () {
     $authorizedClient = mockAuthorizedClient('POST', '/prod/FCTEL/rest/upload', getUploadMessage());
@@ -89,4 +90,31 @@ test('xml to pdf', function () {
     $response = $authorizedClient->efactura()->xmlToPdf(__DIR__.'/../Fixtures/dummyxml.xml', validate: false);
 
     expect($response)->toBeInstanceOf(FileContract::class);
+});
+
+test('validate valid xml', function () {
+    $authorizedClient = mockClient('POST', '/prod/FCTEL/rest/validare/FACT1', getXmlValidationMessage());
+
+    $response = $authorizedClient->efactura()->validateXml(__DIR__ . '/../Fixtures/dummyxml.xml');
+
+    expect($response)->toBeInstanceOf(ValidationResponse::class)
+        ->toArray()
+        ->toHaveKey('stare', 'ok')
+        ->and($response)
+        ->isValid()
+        ->toBeTrue();
+});
+
+
+test('validate invalid xml', function () {
+    $authorizedClient = mockClient('POST', '/prod/FCTEL/rest/validare/FACT1', getXmlValidationMessage(false));
+
+    $response = $authorizedClient->efactura()->validateXml(__DIR__ . '/../Fixtures/dummyxml.xml');
+
+    expect($response)->toBeInstanceOf(ValidationResponse::class)
+        ->toArray()
+        ->toHaveKey('stare', 'nok')
+        ->and($response)
+        ->isValid()
+        ->toBeFalse();
 });

@@ -6,9 +6,12 @@ namespace Anaf\Resources;
 
 use Anaf\Contracts\FileContract;
 use Anaf\Enums\Efactura\UploadStandard;
+use Anaf\Exceptions\TransporterException;
+use Anaf\Exceptions\UnserializableResponse;
 use Anaf\Responses\Efactura\CreateMessagesResponse;
 use Anaf\Responses\Efactura\CreatePaginatedMessagesResponse;
 use Anaf\Responses\Efactura\CreateUploadResponse;
+use Anaf\Responses\Efactura\ValidationResponse;
 use Anaf\ValueObjects\Transporter\Payload;
 use Anaf\ValueObjects\Transporter\Xml;
 use Exception;
@@ -130,5 +133,29 @@ class Efactura
         );
 
         return $this->transporter->requestFile($payload);
+    }
+
+    /**
+     * Validates a given XML file
+     *
+     * @throws UnserializableResponse|TransporterException
+     */
+    public function validateXml(string $xml_path, string $standard = 'FACT1'): ValidationResponse
+    {
+        if (!in_array($standard, ['FACT1', 'FCN'])) {
+            throw new RuntimeException("Invalid standard {$standard}");
+        }
+
+        $payload = Payload::upload(
+            resource: "prod/FCTEL/rest/validare/{$standard}",
+            body: Xml::from($xml_path)->toString(),
+        );
+
+        /**
+         * @var array{stare: string, trace_id: string, Messages: list<array{message: string}>} $response
+         */
+        $response = $this->transporter->requestObject($payload);
+
+        return ValidationResponse::from($response);
     }
 }

@@ -295,7 +295,37 @@ $file = $authorizedClient->efactura()->download([
 $file->getContent(); // string - You can save/download the content to a file
 ```
 #### [Validate](https://mfinante.gov.ro/static/10/eFactura/validare.html) Resource
-TODO: implement `validate` from [here](https://mfinante.gov.ro/static/10/eFactura/validare.html)
+
+Validate the XML 
+
+```php
+/*
+    * $xmlStandard can be one of the following: 'FACT1', 'FCN'.
+    * The default value is 'FACT1'
+    */
+    $response = $client->efactura()->validateXml($path_to_xml, $xmlStandard);
+
+    $response->isValid(); //bool, you can proceed accordingly
+    $response->status; //string 'ok' or 'nok'
+    $response->messages; //array  of messages, empty if validation successful
+
+    $response->toArray();
+    //Examples
+    $valid = [
+        'stare'    => 'ok',
+        'trace_id' => '....',
+    ];
+
+    $invalid = [
+        'stare'    => 'nok',
+        'Messages' => [
+            [
+                'message' => "Fisierul transmis nu este valid.....",
+            ]
+        ],
+        'trace_id' => '....',
+    ];
+```
 
 #### [XmlToPdf](https://mfinante.gov.ro/static/10/eFactura/xmltopdf.html) Resource
 Convert XML eFactura to PDF. For this endpoint you need to use unauthenticated client
