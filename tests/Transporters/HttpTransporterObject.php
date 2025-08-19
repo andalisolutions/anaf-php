@@ -25,7 +25,7 @@ beforeEach(function () {
 });
 
 test('request object', function () {
-    $payload = Payload::create('PlatitorTvaRest/api/v8/ws/tva', []);
+    $payload = Payload::create('api/PlatitorTvaRest/v9/tva', []);
 
     $response = new Response(200, [], json_encode([
         'asdf',
@@ -39,7 +39,7 @@ test('request object', function () {
                 ->and($request->getUri())
                 ->getHost()->toBe('webservicesp.anaf.ro')
                 ->getScheme()->toBe('https')
-                ->getPath()->toBe('/PlatitorTvaRest/api/v8/ws/tva');
+                ->getPath()->toBe('/api/PlatitorTvaRest/v9/tva');
 
             return true;
         })->andReturn($response);
@@ -71,7 +71,7 @@ test('request object from xml', function () {
 });
 
 test('request object response', function () {
-    $payload = Payload::create('PlatitorTvaRest/api/v8/ws/tva', []);
+    $payload = Payload::create('api/PlatitorTvaRest/v9/tva', []);
 
     $response = new Response(200, [], json_encode(
         [
@@ -112,7 +112,7 @@ test('request object response', function () {
 });
 
 test('request object client errors', function () {
-    $payload = Payload::create('PlatitorTvaRest/api/v8/ws/tva', []);
+    $payload = Payload::create('api/PlatitorTvaRest/v9/tva', []);
 
     $baseUri = BaseUri::from('webservicesp.anaf.ro');
     $headers = Headers::create()->withContentType(ContentType::JSON);
@@ -131,7 +131,7 @@ test('request object client errors', function () {
 });
 
 test('request object serialization errors', function () {
-    $payload = Payload::create('PlatitorTvaRest/api/v8/ws/tva', []);
+    $payload = Payload::create('api/PlatitorTvaRest/v9/tva', []);
 
     $response = new Response(200, [], 'err');
 

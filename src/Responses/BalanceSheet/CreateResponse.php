@@ -8,7 +8,6 @@ use Anaf\Contracts\Response;
 use Anaf\Enums\BalanceSheet\BL;
 use Anaf\Enums\BalanceSheet\OL;
 use Anaf\Responses\Concerns\ArrayAccessible;
-use BackedEnum;
 
 /**
  * @implements Response<array{year: int, tax_identification_number: int, company_name: string, activity_code: int, activity_name: string, indicators: array<string, array{indicator: string, value: int, indicator_name: string}>}>
@@ -44,7 +43,7 @@ class CreateResponse implements Response
          * @see https://static.anaf.ro/static/10/Anaf/Declaratii_R/AplicatiiDec/UniversalCode_2012.pdf for indicators type
          */
 
-        /** @var BackedEnum $indicatorType */
+        /** @var class-string<BL|OL> $indicatorType */
         $indicatorType = match ($attributes['i'][0]['val_den_indicator']) {
             'Efectivul de personal privind activitatile economice' => OL::class,
             default => BL::class,

@@ -7,7 +7,7 @@ use Anaf\ValueObjects\Transporter\Payload;
 use Anaf\ValueObjects\Transporter\QueryParams;
 
 it('has a post method', function () {
-    $payload = Payload::create('PlatitorTvaRest/api/v8/ws/tva', []);
+    $payload = Payload::create('api/PlatitorTvaRest/v9/tva', []);
 
     $baseUri = BaseUri::from('webservicesp.anaf.ro');
     $headers = Headers::create()->withContentType(ContentType::JSON);
@@ -56,7 +56,7 @@ test('get verb does not have a body', function () {
 });
 
 test('post verb has a body', function () {
-    $payload = Payload::create('PlatitorTvaRest/api/v8/ws/tva', [
+    $payload = Payload::create('api/PlatitorTvaRest/v9/tva', [
         [
             'cui' => '3874563',
             'data' => '2023-01-01',
