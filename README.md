@@ -13,7 +13,7 @@
 
 ## Get Started
 
-> **Requires [PHP 8.1+](https://php.net/releases/)**
+> **Requires [PHP 8.2+](https://php.net/releases/)**
 
 First, install ANAF via the [Composer](https://getcomposer.org/) package manager:
 
