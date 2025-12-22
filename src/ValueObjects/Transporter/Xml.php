@@ -18,7 +18,8 @@ class Xml implements StringableContract
      */
     private function __construct(
         private readonly string $xml_path,
-    ) {
+    )
+    {
         // ..
     }
 
@@ -47,17 +48,18 @@ class Xml implements StringableContract
     {
         $xml_content = file_get_contents($xml_path);
 
-        if (! $xml_content) {
+        if (!$xml_content) {
             throw new RuntimeException("Could not read file {$xml_path}");
         }
 
         $xml_content = $this->replaceCData($xml_content);
+        $xml_content = $this->removeDeliveryTags($xml_content);
 
         // Regex pattern to match the xsi:schemaLocation attribute regardless of its content
         $pattern = '/\sxsi:(schemaLocation|schemalocation)="[^"]*"/';
 
         // Replace the matched pattern with an empty string
-        return (string) preg_replace($pattern, '', $xml_content);
+        return (string)preg_replace($pattern, '', $xml_content);
     }
 
     private function replaceCData(string $xml_content): string
@@ -65,6 +67,14 @@ class Xml implements StringableContract
         $pattern = '/<!\[CDATA\[(.*?)]]>/s';
 
         // Replace the whole CDATA section with just the content inside it
-        return (string) preg_replace($pattern, '$1', $xml_content);
+        return (string)preg_replace($pattern, '$1', $xml_content);
+    }
+
+    private function removeDeliveryTags(string $xml_content): string
+    {
+        $pattern = '/<cac:Delivery>.*?<\/cac:Delivery>/s';
+
+        // Remove all cac:Delivery tags and their content
+        return (string)preg_replace($pattern, '', $xml_content);
     }
 }
