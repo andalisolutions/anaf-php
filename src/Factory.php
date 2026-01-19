@@ -23,7 +23,7 @@ class Factory
      */
     private ?string $baseUri = null;
 
-    private static bool $staging = false;
+    private bool $staging = false;
 
     /**
      * The query parameters for the requests.
@@ -58,14 +58,9 @@ class Factory
      */
     public function staging(): self
     {
-        self::$staging = true;
+        $this->staging = true;
 
         return $this;
-    }
-
-    public static function isStaging(): bool
-    {
-        return self::$staging;
     }
 
     /**
@@ -99,7 +94,7 @@ class Factory
 
         $client = new GuzzleClient;
 
-        $transporter = new HttpTransporter($client, $baseUri, $headers, $queryParams);
+        $transporter = new HttpTransporter($client, $baseUri, $headers, $queryParams, $this->staging);
 
         return new Client($transporter);
     }

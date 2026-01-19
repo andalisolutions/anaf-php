@@ -10,22 +10,32 @@ class Anaf
     /**
      * Creates a new Anaf Authorized Client with the given api key.
      */
-    public static function authorizedClient(string $apiKey): Client
+    public static function authorizedClient(string $apiKey, bool $isStage = false): Client
     {
-        return self::factory()
+        $factory = self::factory()
             ->withApiKey($apiKey)
-            ->withBaseUri('api.anaf.ro')
-            ->make();
+            ->withBaseUri('api.anaf.ro');
+
+        if (!$isStage) {
+            return $factory->make();
+        }
+
+        return $factory->staging()->make();
     }
 
     /**
      * Creates a new Anaf Client for non-authorized requests.
      */
-    public static function client(): Client
+    public static function client(bool $isStage = false): Client
     {
-        return self::factory()
-            ->withBaseUri('webservicesp.anaf.ro')
-            ->make();
+        $factory = self::factory()
+            ->withBaseUri('webservicesp.anaf.ro');
+
+        if (!$isStage) {
+            return $factory->make();
+        }
+
+        return $factory->staging()->make();
     }
 
     /**
