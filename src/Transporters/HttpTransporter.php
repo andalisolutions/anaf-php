@@ -30,6 +30,7 @@ class HttpTransporter implements TransporterContract
         private readonly BaseUri $baseUri,
         private readonly Headers $headers,
         private readonly QueryParams $queryParams,
+        private readonly bool $isStage = false,
     ) {
         // ..
     }
@@ -41,7 +42,7 @@ class HttpTransporter implements TransporterContract
      */
     public function requestObject(Payload $payload): array
     {
-        $request = $payload->toRequest($this->baseUri, $this->headers, $this->queryParams);
+        $request = $payload->toRequest($this->baseUri, $this->headers, $this->queryParams, $this->isStage);
 
         try {
             $response = $this->client->sendRequest($request);
@@ -81,7 +82,7 @@ class HttpTransporter implements TransporterContract
 
     public function requestFile(Payload $payload): FileHandler
     {
-        $request = $payload->toRequest($this->baseUri, $this->headers, $this->queryParams);
+        $request = $payload->toRequest($this->baseUri, $this->headers, $this->queryParams, $this->isStage);
 
         try {
             $response = $this->client->sendRequest($request);
