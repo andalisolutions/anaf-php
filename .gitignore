@@ -8,3 +8,4 @@
 *.swo
 reports/*
 .idea
+.idea/*
