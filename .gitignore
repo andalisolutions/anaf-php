@@ -7,3 +7,4 @@
 *.swp
 *.swo
 reports/*
+.idea

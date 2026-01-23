@@ -81,11 +81,11 @@ class Payload
     /**
      * Creates a new Psr 7 Request instance.
      */
-    public function toRequest(BaseUri $baseUri, Headers $headers, QueryParams $queryParams): RequestInterface
+    public function toRequest(BaseUri $baseUri, Headers $headers, QueryParams $queryParams, bool $isStage = false): RequestInterface
     {
         $psr17Factory = new Psr17Factory;
 
-        $uri = $this->buildUri($baseUri);
+        $uri = $this->buildUri($baseUri, $isStage);
 
         $queryParams = $queryParams->toArray();
 
@@ -123,11 +123,11 @@ class Payload
         return $request;
     }
 
-    private function buildUri(BaseUri $baseUri): string
+    private function buildUri(BaseUri $baseUri, bool $isStage = false): string
     {
         $uri = $baseUri->toString().$this->uri->toString();
 
-        if (! Factory::isStaging()) {
+        if (! $isStage) {
             return $uri;
         }
 

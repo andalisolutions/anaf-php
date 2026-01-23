@@ -52,3 +52,18 @@ function mockAuthorizedClient(string $method, string $resource, Response|Respons
 
     return new Client($transporter);
 }
+
+function checkStageValue(Client $anafClient, bool $expectedValue): void
+{
+    $transporterReflection = new ReflectionClass($anafClient);
+    $transporterProperty = $transporterReflection->getProperty('transporter');
+    $transporterProperty->setAccessible(true);
+    $transporter = $transporterProperty->getValue($anafClient);
+
+    $stagingReflection = new ReflectionClass($transporter);
+    $stagingProperty = $stagingReflection->getProperty('isStage');
+    $stagingProperty->setAccessible(true);
+    $staging = $stagingProperty->getValue($transporter);
+
+    expect($staging)->toBe($expectedValue);
+}
