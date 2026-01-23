@@ -130,6 +130,7 @@ class Efactura
         $payload = Payload::upload(
             resource: "prod/FCTEL/rest/transformare/{$standard}{$validateFile}",
             body: Xml::from($xml_path)->toString(),
+            isProdOnly: true,
         );
 
         return $this->transporter->requestFile($payload);
@@ -149,6 +150,7 @@ class Efactura
         $payload = Payload::upload(
             resource: "prod/FCTEL/rest/validare/{$standard}",
             body: Xml::from($xml_path)->toString(),
+            isProdOnly: true,
         );
 
         /**

@@ -6,7 +6,6 @@ namespace Anaf\ValueObjects\Transporter;
 
 use Anaf\Enums\Transporter\ContentType;
 use Anaf\Enums\Transporter\Method;
-use Anaf\Factory;
 use Anaf\ValueObjects\ResourceUri;
 use Http\Discovery\Psr17Factory;
 use Psr\Http\Message\RequestInterface;
@@ -29,6 +28,7 @@ class Payload
         private readonly ResourceUri $uri,
         private readonly array $parameters = [],
         private readonly ?string $body = null,
+        private readonly bool $isProdOnly = false,
     ) {
         // ..
     }
@@ -38,14 +38,21 @@ class Payload
      *
      * @param  array<int, array{cui: string, data: string}>  $parameters
      */
-    public static function create(string $resource, array $parameters): self
+    public static function create(string $resource, array $parameters, bool $isProdOnly = false): self
     {
         $contentType = ContentType::JSON;
         $acceptContentType = ContentType::JSON;
         $method = Method::POST;
         $uri = ResourceUri::create($resource);
 
-        return new self($contentType, $acceptContentType, $method, $uri, $parameters);
+        return new self(
+            contentType: $contentType,
+            acceptContentType: $acceptContentType,
+            method: $method,
+            uri: $uri,
+            parameters: $parameters,
+            isProdOnly: $isProdOnly,
+        );
     }
 
     /**
@@ -53,14 +60,26 @@ class Payload
      *
      * @param  array<array-key, string>  $parameters
      */
-    public static function upload(string $resource, string $body, array $parameters = []): self
-    {
+    public static function upload(
+        string $resource,
+        string $body,
+        array $parameters = [],
+        bool $isProdOnly = false
+    ): self {
         $method = Method::POST;
         $uri = ResourceUri::create($resource);
         $contentType = ContentType::TEXT;
         $acceptContentType = ContentType::ALL;
 
-        return new self($contentType, $acceptContentType, $method, $uri, $parameters, $body);
+        return new self(
+            contentType: $contentType,
+            acceptContentType: $acceptContentType,
+            method: $method,
+            uri: $uri,
+            parameters: $parameters,
+            body: $body,
+            isProdOnly: $isProdOnly,
+        );
     }
 
     /**
@@ -68,21 +87,32 @@ class Payload
      *
      * @param  array<array-key, mixed>  $parameters
      */
-    public static function get(string $resource, array $parameters): self
+    public static function get(string $resource, array $parameters, bool $isProdOnly = false): self
     {
         $contentType = ContentType::JSON;
         $acceptContentType = ContentType::JSON;
         $method = Method::GET;
         $uri = ResourceUri::get($resource);
 
-        return new self($contentType, $acceptContentType, $method, $uri, $parameters);
+        return new self(
+            contentType: $contentType,
+            acceptContentType: $acceptContentType,
+            method: $method,
+            uri: $uri,
+            parameters: $parameters,
+            isProdOnly: $isProdOnly,
+        );
     }
 
     /**
      * Creates a new Psr 7 Request instance.
      */
-    public function toRequest(BaseUri $baseUri, Headers $headers, QueryParams $queryParams, bool $isStage = false): RequestInterface
-    {
+    public function toRequest(
+        BaseUri $baseUri,
+        Headers $headers,
+        QueryParams $queryParams,
+        bool $isStage = false
+    ): RequestInterface {
         $psr17Factory = new Psr17Factory;
 
         $uri = $this->buildUri($baseUri, $isStage);
@@ -127,7 +157,7 @@ class Payload
     {
         $uri = $baseUri->toString().$this->uri->toString();
 
-        if (! $isStage) {
+        if (! $isStage || $this->isProdOnly) {
             return $uri;
         }
 

@@ -16,7 +16,7 @@ class Anaf
             ->withApiKey($apiKey)
             ->withBaseUri('api.anaf.ro');
 
-        if (!$isStage) {
+        if (! $isStage) {
             return $factory->make();
         }
 
@@ -31,7 +31,7 @@ class Anaf
         $factory = self::factory()
             ->withBaseUri('webservicesp.anaf.ro');
 
-        if (!$isStage) {
+        if (! $isStage) {
             return $factory->make();
         }
 
